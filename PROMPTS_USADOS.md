@@ -60,3 +60,112 @@ index.html, watchlist.html, trading.html, leaderboard.html, clasificacion.html, 
   <verification>Abrir el repositorio en GitHub y comprobar que figma-src/ está y que no hay secretos (buscar «token», «key», «password»).</verification>  
 </prompt>
 ```
+
+---
+
+## 💻 Fase 3 · Implementación de Módulos (HTML + JavaScript)
+
+### Prompt P03 — Módulo de Clasificación binaria
+```xml
+<prompt id="P03" nombre="Claude: módulo de Clasificación binaria en HTML y JavaScript">  
+  <role>Eres un desarrollador front-end senior que implementa interfaces accesibles en HTML, CSS y JavaScript sin frameworks.</role>  
+  <context>  
+Sistema Ernesto Investing AI. Archivo de salida: clasificacion.html. Usa css/styles.css y js/common.js existentes (funciones $, fmt, loadJSON, store).  
+Datos: data/05_clasificadores_binarios.json con "modelos" (18 con exactitud, precision, recall, f1, auc, matriz_confusion) y  
+"predicciones"[ticker] con "modelos"[{modelo, familia, prob_sube, senal}], votos_sube, votos_baja, prob_media, consenso, confianza.  
+El diseño debe seguir la pantalla de Clasificación del archivo de Figma https://tame-wifi-31309741.figma.site.  
+  </context>  
+  <task>  
+1. Mapa de calor activo × modelo (tabla con scope en los encabezados). Cada celda: color según prob_sube Y el texto SUBE/BAJA con un símbolo (▲/▼).  
+2. Tarjeta de consenso del activo seleccionado: votos, probabilidad media, confianza.  
+3. Tabla de métricas por modelo, ordenable por columna con teclado.  
+4. Filtros por grupo y por familia (ML, DL).  
+5. Aviso «Datos sintéticos · clasificación simulada».  
+  </task>  
+  <constraints>  
+- Solo dos clases (SUBE/BAJA). Nunca mostrar una tercera salida.  
+- Leer los datos del JSON; no copiar números dentro del código.  
+- Contraste 4,5:1 en tema claro y oscuro. Funcionar a 390 px sin desborde horizontal.  
+- Sin dependencias externas salvo ECharts 5.5.1 desde https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js.  
+  </constraints>  
+  <output>El archivo clasificacion.html completo y, si hace falta, js/clasificacion.js, con comentarios en español.</output>  
+  <verification>Abrir con python -m http.server; revisar consola sin errores; comprobar que 26 activos × 18 modelos = 468 celdas; navegar con Tab.</verification>  
+</prompt>
+```
+
+### Prompt P04 — Módulo de Regresión a 30 sesiones
+```xml
+<prompt id="P04" nombre="Claude: módulo de Regresión de precios a 30 sesiones">  
+  <role>Eres un desarrollador front-end senior especializado en visualización de series de tiempo con ECharts.</role>  
+  <context>  
+Archivo de salida: regresion.html. Datos: data/06_regresores_precio_30d.json con "fechas_pronostico" (30), "modelos" (métricas) y  
+"predicciones"[ticker] = {precio_ultimo, modelos:[{modelo, familia, precios[30]}], ensamble_mediana[30], banda_p10[30], banda_p90[30],  
+retorno_proyectado_30d_pct, cono_volatilidad_inf[30], cono_volatilidad_sup[30]}.  
+Historia: data/02_precios_sinteticos_504d.json {fechas, cierres[ticker]}.  
+  </context>  
+  <task>  
+1. Gráfico de líneas: últimas 120 sesiones de historia y 30 proyectadas; una línea tenue por modelo, la mediana destacada y el sombreado p10–p90.  
+2. Selector de activo y de familia (todos, solo ML, solo DL); activar/desactivar modelos con casillas.  
+3. Etiqueta de retorno proyectado con color y texto (por ejemplo «+2,93 % ▲»).  
+4. Tabla de métricas por modelo (MAPE, MAE, RMSE, R², mejora vs persistencia).  
+5. Alternativa en tabla de los 30 precios de la mediana para lectores de pantalla.  
+  </task>  
+  <constraints>  
+- La banda de incertidumbre siempre visible por defecto.  
+- Fechas y números con Intl según el locale activo.  
+- Aviso «Datos sintéticos · pronóstico simulado, no es asesoría de inversión».  
+  </constraints>  
+  <output>regresion.html completo y js/regresion.js con comentarios en español.</output>  
+  <verification>Comprobar que el último punto de la mediana coincide con precio_ultimo × (1 + retorno_proyectado_30d_pct/100) con tolerancia de 1 centavo.</verification>  
+</prompt>
+```
+
+### Prompt P05 — Módulo Optimizador (Markowitz, NSGA-II, NSGA-III)
+```xml
+<prompt id="P05" nombre="Claude: módulo Optimizador con Markowitz, NSGA-II y NSGA-III">  
+  <role>Eres un desarrollador front-end con conocimientos de optimización de portafolios.</role>  
+  <context>  
+Archivo de salida: optimizador.html. Datos: data/07_optimizador_markowitz_nsga.json con "elegibles", "tope_peso_por_activo", "tasa_libre_riesgo",  
+"markowitz_universo_completo" y "markowitz_elegibles" (listas de {retorno_esperado_anual_pct, volatilidad_anual_pct, sharpe, cvar95_diario_pct, pesos}),  
+"nsga2_elegibles" (con id) y "nsga3_elegibles" (con id y cvar95_diario_pct).  
+  </context>  
+  <task>  
+1. Gráfico de dispersión riesgo (X) – retorno (Y): curva de Markowitz como línea, frente NSGA-II como puntos, frente NSGA-III como puntos con color por CVaR 95 %.  
+2. Interruptores para mostrar u ocultar cada serie; opción de curva del universo completo frente a solo elegibles.  
+3. Al hacer clic (o con Enter) en un punto: panel con los pesos del portafolio (barras) y sus métricas.  
+4. Explicación breve de qué optimiza cada método y por qué NSGA queda algo por debajo de Markowitz.  
+5. Lista de activos elegibles y el criterio de elegibilidad.  
+  </task>  
+  <constraints>  
+- Mostrar el aviso «NSGA-II y NSGA-III simulados: no se ejecutó ningún algoritmo evolutivo».  
+- Los puntos deben poder seleccionarse con teclado; ofrecer una tabla alternativa de los puntos.  
+- No recalcular las fronteras: solo leerlas del JSON.  
+  </constraints>  
+  <output>optimizador.html completo y js/optimizador.js con comentarios en español.</output>  
+  <verification>Comprobar que la suma de pesos de cada punto seleccionado es 1 ± 0,02 y que ningún peso supera el tope.</verification>  
+</prompt>
+```
+
+### Prompt P06 — Módulos de Portafolios y Backtesting
+```xml
+<prompt id="P06" nombre="Claude: módulos de Portafolios en 3 niveles y Backtesting">  
+  <role>Eres un desarrollador front-end senior especializado en tableros financieros.</role>  
+  <context>  
+Archivos de salida: portafolios.html y backtesting.html.  
+Datos: data/08_portafolios_3_niveles_riesgo.json {niveles:[{nivel, origen, descripcion, restricciones, retorno_esperado_anual_pct, volatilidad_anual_pct, sharpe, cvar95_diario_pct, pesos, detalle_activos[{ticker, peso_pct, grupo, razon}]}]}.  
+data/09_backtesting_portafolios.json {fechas (253), carteras{Conservador|Moderado|Agresivo:{curva, metricas, rebalanceos[{fecha, pesos}], turnover_medio, drawdown}}, referencias{SPY|QQQ|EPU|Igual ponderado (1/N):{curva, metricas}}}.  
+  </context>  
+  <task>  
+1. portafolios.html: tres tarjetas comparables, dona de pesos por nivel, tabla de razones por activo y botón «Llevar a Trading».  
+2. backtesting.html: curvas de capital base 100 de las 3 carteras y 4 referencias, curva de drawdown, tabla de métricas ordenable, línea de tiempo de rebalanceos.  
+3. Un bloque «Interpretación» que redacte, a partir de las métricas leídas, si cada cartera superó o no a SPY y por qué podría ser.  
+  </task>  
+  <constraints>  
+- La interpretación se genera desde los números del JSON; no escribir conclusiones fijas en el código.  
+- Declarar que el backtesting es sobre historia sintética y que desempeño pasado no garantiza desempeño futuro.  
+- Mantener el mismo tema claro/oscuro y vista móvil.  
+  </constraints>  
+  <output>Los dos HTML completos y sus archivos js, con comentarios en español.</output>  
+  <verification>Comprobar que la última cifra de cada curva coincide con retorno_total_pct (curva_final/100 − 1) dentro de 0,05 puntos porcentuales.</verification>  
+</prompt>
+```

@@ -1,10 +1,66 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Clasificación binaria de tendencia · Ernesto Investing AI</title><link rel="stylesheet" href="css/styles.css"></head>
-<body data-page="clasificacion"><main>
-<h1>Clasificación binaria de tendencia</h1>
-<div class="stub"><p><strong>Módulo por construir por su equipo.</strong> Mostrar, para cada activo, la señal SUBE/BAJA de los 18 clasificadores (11 de Machine Learning y 7 de Deep Learning), sus métricas y el consenso. Solo hay dos clases: no existe una tercera salida.</p>
-<h2>Qué debe contener</h2><ul><li>Tabla activo × modelo con probabilidad de SUBE, resaltada por color y etiqueta.</li><li>Tarjeta de consenso por activo (votos, probabilidad media, confianza).</li><li>Métricas por modelo: exactitud, precisión, recall, F1, AUC y matriz de confusión.</li><li>Filtro por grupo (Magníficas 7, mineras con operaciones en Perú, ETF sectoriales, ETF globales y Perú).</li></ul>
-<p class="mut">Datos de entrada: <code>data/05_clasificadores_binarios.json</code>. Todos están simulados (patrones realistas).</p></div>
-<h2>Vista previa de los datos de entrada</h2><div id="prev"></div>
-<script src="js/common.js"></script><script>window.STUB={files:['05_clasificadores_binarios.json']}</script><script src="js/stub.js"></script></main></body></html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Clasificación binaria de tendencia · Ernesto Investing AI</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+</head>
+<body data-page="clasificacion">
+<main>
+  <h1>Clasificación binaria de tendencia</h1>
+  <p class="aviso top" role="note"><strong>Datos sintéticos · clasificación simulada</strong> (señales binarias estrictas a 30 sesiones: solo SUBE o BAJA, no existe clase neutral ni asesoría financiera).</p>
+  
+  <p class="lead">Cada celda evalúa la proyección de tendencia: <strong>SUBE</strong> si el precio esperado a 30 sesiones supera el precio actual (\(P_{t+30} > P_t\)), o <strong>BAJA</strong> en caso contrario. 18 modelos en total (11 Machine Learning y 7 Deep Learning).</p>
+
+  <!-- Filtros -->
+  <div class="row" style="margin-bottom:1rem">
+    <div>
+      <label for="grp">Filtrar por grupo de activos</label>
+      <select id="grp"></select>
+    </div>
+    <fieldset style="border:0;padding:0;margin:0">
+      <legend style="font-weight:600;margin-bottom:.2rem">Familia de modelos (columnas)</legend>
+      <div class="seg" role="radiogroup" aria-label="Filtro de modelos por familia">
+        <label><input type="radio" name="fam" value="ALL" checked><span>Todos (18)</span></label>
+        <label><input type="radio" name="fam" value="ML"><span>Solo ML (11)</span></label>
+        <label><input type="radio" name="fam" value="DL"><span>Solo DL (7)</span></label>
+      </div>
+    </fieldset>
+  </div>
+
+  <!-- Leyenda accesible -->
+  <div class="leg" aria-label="Leyenda del mapa de calor">
+    <span><span class="sw" style="background:color-mix(in srgb,var(--up) 35%,var(--panel))"></span>▲ SUBE (verde + texto + flecha)</span>
+    <span><span class="sw" style="background:color-mix(in srgb,var(--dn) 35%,var(--panel))"></span>▼ BAJA (rojo + texto + flecha)</span>
+    <span class="mut">El porcentaje indica la probabilidad estimada de SUBE \(P(\text{SUBE})\).</span>
+  </div>
+
+  <!-- Contenedor principal: Mapa de calor + Consenso -->
+  <div class="two">
+    <div class="tw" style="max-height:36rem" tabindex="0" role="region" aria-label="Mapa de calor interactivo de activos por modelo">
+      <table class="heat" id="heat"></table>
+    </div>
+    <aside class="card" id="cons" aria-live="polite"></aside>
+  </div>
+
+  <!-- Honestidad del modelo (Criterio IHC G2) -->
+  <section class="card" style="margin-top:1.5rem;border-left:4px solid var(--ac)">
+    <h2 style="margin-top:0">Honestidad y confiabilidad del modelo (Pautas IHC G1 y G2)</h2>
+    <p>En series temporales financieras y mercados eficientes, predecir la dirección futura del precio con alta certeza es inviable. Como se observa en la tabla de métricas inferior, la exactitud (accuracy) de los 18 modelos ronda entre el <strong>52 % y 58 %</strong>.</p>
+    <p class="mut" style="margin-bottom:0"><em>¿Qué significa esto en lenguaje llano?</em> Un clasificador financiero realista acierta apenas un poco más que lanzar una moneda al aire (50 %). Por esta razón, el sistema nunca presenta un pronóstico como una certeza absoluta ni recomienda operar basándose en un único algoritmo; se debe evaluar el consenso, la dispersión entre modelos y gestionar estrictamente el riesgo.</p>
+  </section>
+
+  <!-- Métricas por modelo ordenables -->
+  <h2>Métricas de desempeño por modelo (ordenables con teclado)</h2>
+  <p class="mut" style="margin-top:0">Haga clic o pulse Enter en los encabezados para ordenar por Exactitud, Precisión, Recall, F1 o AUC.</p>
+  <div class="tw" tabindex="0" role="region" aria-label="Tabla de métricas de modelos de clasificación">
+    <table id="mt"></table>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/clasificacion.js"></script>
+</main>
+</body>
+</html>

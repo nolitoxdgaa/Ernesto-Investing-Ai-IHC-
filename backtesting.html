@@ -1,10 +1,60 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Backtesting de portafolios · Ernesto Investing AI</title><link rel="stylesheet" href="css/styles.css"></head>
-<body data-page="backtesting"><main>
-<h1>Backtesting de portafolios</h1>
-<div class="stub"><p><strong>Módulo por construir por su equipo.</strong> Simular el desempeño de los 3 portafolios durante 252 sesiones con rebalanceo mensual y compararlos con SPY, QQQ, EPU y un portafolio igual ponderado.</p>
-<h2>Qué debe contener</h2><ul><li>Curvas de capital (base 100) y de drawdown.</li><li>Tabla de métricas: retorno total, CAGR, volatilidad, Sharpe, máximo drawdown, Calmar y meses positivos.</li><li>Línea de tiempo de rebalanceos con los pesos de cada fecha.</li><li>Interpretación escrita: ¿por qué las carteras superaron o no al benchmark en estos datos sintéticos?</li></ul>
-<p class="mut">Datos de entrada: <code>data/09_backtesting_portafolios.json</code>. Todos están simulados (patrones realistas).</p></div>
-<h2>Vista previa de los datos de entrada</h2><div id="prev"></div>
-<script src="js/common.js"></script><script>window.STUB={files:['09_backtesting_portafolios.json']}</script><script src="js/stub.js"></script></main></body></html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Backtesting walk-forward · Ernesto Investing AI</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+</head>
+<body data-page="backtesting">
+<main>
+  <h1>Backtesting de portafolios (Walk-forward de 252 sesiones)</h1>
+  <p class="aviso top" role="note">
+    <strong>Datos sintéticos · evaluación histórica simulada</strong> (evaluación fuera de muestra sin mirar el futuro; el rendimiento histórico simulado no garantiza resultados futuros).
+  </p>
+
+  <p class="lead">
+    Simulación walk-forward mensual (rebalanceo cada 21 sesiones, ventana de estimación de 126 sesiones, filtro de momentum de 63 sesiones y comisión de 5 puntos básicos por operación). Curvas de capital normalizadas a base 100 frente a 4 referencias de mercado.
+  </p>
+
+  <!-- Curvas de Capital y Drawdown -->
+  <div class="card" style="margin-bottom:1.5rem">
+    <h2 style="margin-top:0">Curvas de Capital acumulado (Base 100)</h2>
+    <div id="eq" class="chart" style="height:26rem" role="img" aria-label="Curvas de evolución del capital base 100 de las 3 carteras frente a SPY, QQQ, EPU e Igual Ponderado"></div>
+    <p class="mut" style="margin:.3rem 0 0;font-size:.84rem">
+      Haga clic en los nombres de la leyenda superior para mostrar u ocultar series. Línea punteada horizontal en 100 = capital inicial.
+    </p>
+  </div>
+
+  <div class="card" style="margin-bottom:1.5rem">
+    <h2 style="margin-top:0">Curvas de Drawdown (Caída máxima desde máximos históricos)</h2>
+    <div id="dd" class="chart" style="height:17rem" role="img" aria-label="Curvas de drawdown en porcentaje para las carteras"></div>
+  </div>
+
+  <!-- Bloque de Interpretación Honesta (Cap. 4.6 y P06) -->
+  <section class="card" id="interp-box" style="margin-bottom:1.5rem;border-left:4px solid var(--ac)"></section>
+
+  <!-- Tabla de Métricas Ordenable -->
+  <h2>Tabla comparativa de métricas de desempeño histórico</h2>
+  <p class="mut" style="margin-top:0">Haga clic o use Enter en los encabezados para ordenar por Retorno Total, CAGR, Volatilidad, Sharpe, Máximo Drawdown o Calmar.</p>
+  <div class="tw" tabindex="0" role="region" aria-label="Tabla de métricas de backtesting">
+    <table id="mt"></table>
+  </div>
+
+  <!-- Línea de tiempo de rebalanceos -->
+  <h2 style="margin-top:1.5rem">Bitácora y línea de tiempo de rebalanceos</h2>
+  <div class="row">
+    <div>
+      <label for="car">Seleccionar cartera para auditar rebalanceos:</label>
+      <select id="car"></select>
+    </div>
+  </div>
+  <ol class="tl" id="tl" aria-label="Fechas de rebalanceo periódico"></ol>
+  <div class="card" id="rb" aria-live="polite" style="margin-top:.5rem"></div>
+
+  <script src="js/common.js"></script>
+  <script src="js/backtesting.js"></script>
+</main>
+</body>
+</html>

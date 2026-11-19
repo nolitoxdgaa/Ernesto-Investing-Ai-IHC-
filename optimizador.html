@@ -1,10 +1,102 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Optimizador: frontera de Markowitz, NSGA-II y NSGA-III · Ernesto Investing AI</title><link rel="stylesheet" href="css/styles.css"></head>
-<body data-page="optimizador"><main>
-<h1>Optimizador: frontera de Markowitz, NSGA-II y NSGA-III</h1>
-<div class="stub"><p><strong>Módulo por construir por su equipo.</strong> Dibujar la curva eficiente de Markowitz y los frentes de portafolios óptimos de NSGA-II (2 objetivos) y NSGA-III (3 objetivos), combinando los activos con consenso SUBE y proyección de regresión positiva.</p>
-<h2>Qué debe contener</h2><ul><li>Gráfico riesgo–retorno con la frontera de Markowitz y los frentes NSGA-II y NSGA-III superpuestos.</li><li>Para NSGA-III, color por CVaR 95 % (tercer objetivo).</li><li>Al hacer clic en un punto: composición del portafolio (pesos) y sus métricas.</li><li>Aviso visible de que NSGA-II/III están simulados.</li></ul>
-<p class="mut">Datos de entrada: <code>data/07_optimizador_markowitz_nsga.json</code>, <code>data/04_matriz_correlacion_covarianza.json</code>. Todos están simulados (patrones realistas).</p></div>
-<h2>Vista previa de los datos de entrada</h2><div id="prev"></div>
-<script src="js/common.js"></script><script>window.STUB={files:['07_optimizador_markowitz_nsga.json', '04_matriz_correlacion_covarianza.json']}</script><script src="js/stub.js"></script></main></body></html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Optimizador riesgo–retorno · Ernesto Investing AI</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+</head>
+<body data-page="optimizador">
+<main>
+  <h1>Optimizador de portafolios (Markowitz, NSGA-II y NSGA-III)</h1>
+  
+  <!-- Aviso permanente de simulación exigido por Anexo A (P05) -->
+  <p class="aviso top" role="alert">
+    <strong>Aviso permanente:</strong> NSGA-II y NSGA-III están <strong>simulados</strong>; no se ejecutó ningún algoritmo genético/evolutivo en el navegador ni servidor. Las curvas y frentes provienen de datos sintéticos con fines educativos.
+  </p>
+
+  <p class="lead">
+    Este módulo sintetiza las predicciones de los módulos anteriores: combina la frontera clásica de Markowitz con optimizaciones multiobjetivo modernas para los <strong>12 activos elegibles</strong> (aquellos con consenso binario SUBE y retorno proyectado positivo a 30 días).
+  </p>
+
+  <!-- Controles e interruptores de series (P05 Requisito 2) -->
+  <div class="card" style="margin-bottom:1rem">
+    <div class="row" style="align-items:center;justify-content:space-between">
+      <div>
+        <label for="pt">Seleccionar portafolio (punto en la frontera):</label>
+        <select id="pt" style="max-width:26rem"></select>
+      </div>
+      <div style="display:flex;gap:.8rem;flex-wrap:wrap">
+        <label style="cursor:pointer;display:inline-flex;align-items:center;gap:.3rem;margin:0">
+          <input type="checkbox" id="chk-mkw-eleg" checked style="width:auto">
+          <span>Markowitz (12 elegibles)</span>
+        </label>
+        <label style="cursor:pointer;display:inline-flex;align-items:center;gap:.3rem;margin:0">
+          <input type="checkbox" id="chk-mkw-all" checked style="width:auto">
+          <span>Markowitz (26 universo)</span>
+        </label>
+        <label style="cursor:pointer;display:inline-flex;align-items:center;gap:.3rem;margin:0">
+          <input type="checkbox" id="chk-nsga2" checked style="width:auto">
+          <span>Frente NSGA-II (2 obj.)</span>
+        </label>
+        <label style="cursor:pointer;display:inline-flex;align-items:center;gap:.3rem;margin:0">
+          <input type="checkbox" id="chk-nsga3" checked style="width:auto">
+          <span>Frente NSGA-III (3 obj. CVaR)</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dispersión y Panel de Composición -->
+  <div class="two">
+    <div class="card">
+      <div id="chart" class="chart" style="height:28rem" role="img" aria-label="Gráfico de dispersión riesgo-retorno con curvas de Markowitz y frentes de Pareto NSGA-II y NSGA-III"></div>
+      <p class="mut" style="margin:.4rem 0 0;font-size:.84rem">
+        Eje X: Volatilidad anual (riesgo) · Eje Y: Retorno esperado anual. El color de los puntos NSGA-III mapea el CVaR al 95 % diario.
+      </p>
+    </div>
+    <aside class="card" id="comp" aria-live="polite"></aside>
+  </div>
+
+  <!-- Explicación de Métodos y Elegibilidad (P05 Requisitos 4 y 5) -->
+  <div class="grid" style="margin-top:1.5rem">
+    <section class="card">
+      <h2 style="margin-top:0">Criterio de Elegibilidad de Activos</h2>
+      <p style="font-size:.92rem">
+        Para proteger la cartera contra activos con expectativas desfavorables, un activo ingresa al conjunto elegible únicamente si cumple dos condiciones simultáneas:
+      </p>
+      <ul style="font-size:.9rem;padding-left:1.2rem">
+        <li><strong>Consenso Clasificación:</strong> P(SUBE) \(\ge 0.5\) en el ensamble de 18 clasificadores.</li>
+        <li><strong>Proyección Regresión:</strong> Retorno proyectado a 30 sesiones \(> 0\).</li>
+      </ul>
+      <p class="mut" style="font-size:.85rem;margin-bottom:0">
+        Activos elegibles determinados (12): <code>AMZN, NVDA, BVN, SCCO, BHP, B, XLV, XLP, XLU, SPY, QQQ, EPU</code>.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2 style="margin-top:0">¿Por qué NSGA queda debajo de Markowitz?</h2>
+      <p style="font-size:.92rem">
+        La curva de Markowitz representa el óptimo matemático continuo sin fricciones bajo hipótesis de media-varianza cuadrática. En cambio:
+      </p>
+      <ul style="font-size:.9rem;padding-left:1.2rem">
+        <li><strong>NSGA-II (2 obj):</strong> Explora el espacio con restricciones discretas de pesos y aproximación poblacional estocástica.</li>
+        <li><strong>NSGA-III (3 obj):</strong> Penaliza adicionalmente el <strong>CVaR (riesgo de cola en el 5% peor)</strong>, sacrificando un pequeño margen de retorno a cambio de menor pérdida extrema.</li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- Alternativa en tabla accesible de los puntos de los frentes -->
+  <details class="card" style="margin-top:1.5rem">
+    <summary>Ver tabla de puntos óptimos de las fronteras (alternativa accesible)</summary>
+    <div class="tw" style="max-height:22rem;margin-top:.5rem" tabindex="0" role="region" aria-label="Tabla de puntos de frontera eficiente">
+      <table id="tbl-opt-points"></table>
+    </div>
+  </details>
+
+  <script src="js/common.js"></script>
+  <script src="js/optimizador.js"></script>
+</main>
+</body>
+</html>

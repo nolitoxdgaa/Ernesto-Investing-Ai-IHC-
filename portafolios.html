@@ -1,10 +1,40 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Portafolios de 3 niveles de riesgo · Ernesto Investing AI</title><link rel="stylesheet" href="css/styles.css"></head>
-<body data-page="portafolios"><main>
-<h1>Portafolios de 3 niveles de riesgo</h1>
-<div class="stub"><p><strong>Módulo por construir por su equipo.</strong> Presentar los portafolios Conservador, Moderado y Agresivo, con sus pesos, métricas y la razón de cada activo (votos de clasificación y proyección de regresión).</p>
-<h2>Qué debe contener</h2><ul><li>Tres tarjetas comparables con retorno esperado, volatilidad, Sharpe y CVaR.</li><li>Gráfico de composición (dona o barras) por nivel.</li><li>Explicación por activo: por qué entró al portafolio.</li><li>Botón para enviar el portafolio al Trading simulado (opcional).</li></ul>
-<p class="mut">Datos de entrada: <code>data/08_portafolios_3_niveles_riesgo.json</code>. Todos están simulados (patrones realistas).</p></div>
-<h2>Vista previa de los datos de entrada</h2><div id="prev"></div>
-<script src="js/common.js"></script><script>window.STUB={files:['08_portafolios_3_niveles_riesgo.json']}</script><script src="js/stub.js"></script></main></body></html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Portafolios en 3 niveles de riesgo · Ernesto Investing AI</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+</head>
+<body data-page="portafolios">
+<main>
+  <h1>Portafolios en 3 niveles de riesgo</h1>
+  <p class="aviso top" role="note">
+    <strong>Datos sintéticos · carteras simuladas</strong> (construidas desde la frontera de Pareto multiobjetivo con restricción máxima de 25 % por activo individual).
+  </p>
+
+  <p class="lead">
+    Estrategias calibradas para tres perfiles de inversión definidos. Cada activo fue seleccionado exclusivamente si superó el filtro conjunto de clasificación binaria (consenso SUBE) y regresión (retorno positivo).
+  </p>
+
+  <!-- 3 Tarjetas comparables lado a lado -->
+  <div class="cards3" id="cards"></div>
+
+  <!-- Información complementaria de integración -->
+  <section class="card" style="margin-top:1.5rem">
+    <h2 style="margin-top:0">Integración con el Simulador de Órdenes (Trading)</h2>
+    <p>
+      Puede transferir la distribución de pesos de cualquiera de los tres portafolios directamente al módulo de <strong>Trading simulado</strong> mediante el botón <em>«Llevar a Trading»</em>. Esto configurará automáticamente su posición inicial de cartera en el simulador para monitorear su evolución en el <strong>Leaderboard</strong>.
+    </p>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap">
+      <a href="trading.html" class="btn-nav">Ir al Trading simulado →</a>
+      <a href="backtesting.html" class="btn-nav">Ver Backtesting histórico de las 3 carteras →</a>
+    </div>
+  </section>
+
+  <script src="js/common.js"></script>
+  <script src="js/portafolios.js"></script>
+</main>
+</body>
+</html>

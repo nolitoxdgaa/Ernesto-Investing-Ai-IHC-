@@ -1,10 +1,79 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Regresión de precios a 30 sesiones · Ernesto Investing AI</title><link rel="stylesheet" href="css/styles.css"></head>
-<body data-page="regresion"><main>
-<h1>Regresión de precios a 30 sesiones</h1>
-<div class="stub"><p><strong>Módulo por construir por su equipo.</strong> Proyectar 30 precios diarios futuros por activo con 18 regresores (11 de ML y 7 de DL), la mediana del ensamble y la banda p10–p90.</p>
-<h2>Qué debe contener</h2><ul><li>Gráfico: historia reciente + 30 sesiones proyectadas por modelo y el ensamble con su banda.</li><li>Selector de activo y de modelo (todos, solo ML, solo DL).</li><li>Tabla de métricas por modelo (MAPE, MAE, RMSE, mejora frente a la persistencia).</li><li>Etiqueta de retorno proyectado a 30 sesiones coloreada por signo.</li></ul>
-<p class="mut">Datos de entrada: <code>data/06_regresores_precio_30d.json</code>, <code>data/02_precios_sinteticos_504d.json</code>. Todos están simulados (patrones realistas).</p></div>
-<h2>Vista previa de los datos de entrada</h2><div id="prev"></div>
-<script src="js/common.js"></script><script>window.STUB={files:['06_regresores_precio_30d.json', '02_precios_sinteticos_504d.json']}</script><script src="js/stub.js"></script></main></body></html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Regresión de precios a 30 sesiones · Ernesto Investing AI</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+</head>
+<body data-page="regresion">
+<main>
+  <h1>Regresión de precios a 30 sesiones</h1>
+  <p class="aviso top" role="note"><strong>Datos sintéticos · pronóstico simulado, no es asesoría de inversión</strong> (proyección de 30 sesiones bursátiles con 18 modelos independientes).</p>
+
+  <p class="lead">Visualice la historia reciente y la trayectoria futura esperada calculada mediante 18 modelos de regresión (11 ML y 7 DL). La línea destacada representa la mediana del ensamble y las áreas sombreadas reflejan la incertidumbre estadística intrínseca.</p>
+
+  <!-- Filtros principales -->
+  <div class="row" style="margin-bottom:1rem">
+    <div>
+      <label for="sel">Activo bursátil</label>
+      <select id="sel"></select>
+    </div>
+    <fieldset style="border:0;padding:0;margin:0">
+      <legend style="font-weight:600;margin-bottom:.2rem">Familia de modelos</legend>
+      <div class="seg" role="radiogroup" aria-label="Filtro de modelos por familia">
+        <label><input type="radio" name="fam" value="ALL" checked><span>Todos (18)</span></label>
+        <label><input type="radio" name="fam" value="ML"><span>Solo ML (11)</span></label>
+        <label><input type="radio" name="fam" value="DL"><span>Solo DL (7)</span></label>
+      </div>
+    </fieldset>
+    <div>
+      <label for="chk-cone" style="cursor:pointer;display:inline-flex;align-items:center;gap:.4rem">
+        <input type="checkbox" id="chk-cone" style="width:auto">
+        <span>Mostrar Cono de Volatilidad</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Casillas para activar/desactivar modelos individuales (Requisito P04) -->
+  <details class="card" style="margin-bottom:1rem">
+    <summary>Activar / Desactivar modelos individuales de regresión</summary>
+    <div style="display:flex;gap:.5rem;margin:.5rem 0">
+      <button type="button" id="btn-all-models" class="btn">Seleccionar todos</button>
+      <button type="button" id="btn-none-models" class="btn">Deseleccionar todos</button>
+    </div>
+    <div class="cboxes" id="model-checkboxes"></div>
+  </details>
+
+  <!-- Gráfico interactivo y tarjeta de proyección -->
+  <div class="two">
+    <div class="card">
+      <div id="chart" class="chart" style="height:27rem" role="img" aria-label="Gráfico de serie temporal: historia de 120 sesiones y proyección futura a 30 sesiones con banda p10-p90 y mediana"></div>
+      <p class="mut" style="margin:.4rem 0 0;font-size:.84rem">
+        La línea punteada vertical marca el precio de anclaje (cierre actual). La banda sombreada representa el percentil p10–p90 (incertidumbre visible).
+      </p>
+    </div>
+    <aside class="card" id="res" aria-live="polite"></aside>
+  </div>
+
+  <!-- Alternativa en tabla accesible (Requisito WCAG AA / P04) -->
+  <details class="card" style="margin-top:1.5rem">
+    <summary>Ver tabla de los 30 precios proyectados (alternativa accesible para lectores de pantalla)</summary>
+    <div class="tw" style="max-height:22rem;margin-top:.5rem" tabindex="0" role="region" aria-label="Tabla de 30 precios proyectados">
+      <table id="tbl-accessible-prices"></table>
+    </div>
+  </details>
+
+  <!-- Métricas por modelo -->
+  <h2>Métricas de error y validación de los regresores</h2>
+  <p class="mut" style="margin-top:0">Evaluación frente a la persistencia (modelo ingenuo que predice que el precio de mañana será igual al de hoy). Haga clic o use teclado en los encabezados para ordenar.</p>
+  <div class="tw" tabindex="0" role="region" aria-label="Tabla de métricas de regresores">
+    <table id="mt"></table>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/regresion.js"></script>
+</main>
+</body>
+</html>
