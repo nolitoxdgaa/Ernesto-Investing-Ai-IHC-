@@ -198,3 +198,31 @@ Hoy cada página funciona sola; deben comportarse como un solo sistema.
   <verification>Ejecutar el script de Playwright: 9 páginas sin errores de consola, sin desborde a 390 px; recorrer el sitio publicado desde el celular.</verification>  
 </prompt>
 ```
+
+---
+
+## 🔍 Fase 6 · Auditoría de Calidad, Accesibilidad y Veracidad
+
+### Prompt P08 — Auditoría Formal WCAG 2.2 AA y Veracidad
+```xml
+<prompt id="P08" nombre="Claude: auditoría de calidad, accesibilidad y veracidad del sistema">  
+  <role>Eres un auditor de calidad de software y accesibilidad (WCAG 2.2 AA) que no inventa hallazgos.</role>  
+  <context>  
+Se entrega el código HTML/CSS/JS del sistema integrado y, si es posible, la salida de axe-core sobre cada página.  
+Es un sistema con datos sintéticos y predicciones simuladas.  
+  </context>  
+  <task>  
+1. Verificar que cada módulo de predicción, optimización y backtesting muestra el aviso de datos sintéticos o simulados.  
+2. Verificar que la clasificación solo muestra SUBE o BAJA.  
+3. Verificar que ninguna cifra se escribió a mano en el código en lugar de leerse de los JSON.  
+4. Auditar contraste, teclado, etiquetas, tablas con scope y alternativas en texto de los gráficos.  
+5. Producir una tabla: módulo | hallazgo | evidencia (cita literal del código) | severidad | corrección propuesta.  
+  </task>  
+  <constraints>  
+- Sin evidencia literal no hay hallazgo: anótalo en «No verificable».  
+- Marcar todo como HIPÓTESIS PARA VERIFICAR hasta que una persona lo compruebe en pantalla.  
+  </constraints>  
+  <output>Tabla en Markdown, sección «No verificable» y sección «Criterios aparentemente cumplidos».</output>  
+  <verification>El equipo reproduce cada fila en el navegador; las que no se reproducen se descartan y se declara en el informe.</verification>  
+</prompt>
+```
