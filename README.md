@@ -27,8 +27,8 @@
 ## 🔗 2. Enlaces del Proyecto
 
 - **Prototipo / Archivo en Figma:** [Enlace Figma en modo lectura / vista](https://tame-wifi-31309741.figma.site)
-- **Sistema Desplegado (GitHub Pages):** `https://<usuario>.github.io/<repositorio>/` *(en proceso de despliegue en Fase 5)*
-- **Repositorio de Código:** `https://github.com/<usuario>/<repositorio>`
+- **Sistema Desplegado (GitHub Pages):** [https://nolitoxdgaa.github.io/Ernesto-Investing-Ai-IHC-/](https://nolitoxdgaa.github.io/Ernesto-Investing-Ai-IHC-/)
+- **Repositorio de Código:** [https://github.com/nolitoxdgaa/Ernesto-Investing-Ai-IHC-](https://github.com/nolitoxdgaa/Ernesto-Investing-Ai-IHC-)
 
 ---
 
@@ -54,8 +54,8 @@ El sistema está construido en **HTML5 + CSS3 + JavaScript estándar (ES6+) sin 
 ### Pasos de Ejecución
 ```bash
 # 1. Clonar el repositorio del equipo
-git clone https://github.com/<usuario>/<repositorio>.git
-cd <repositorio>
+git clone https://github.com/nolitoxdgaa/Ernesto-Investing-Ai-IHC-.git
+cd Ernesto-Investing-Ai-IHC-
 
 # 2. Iniciar el servidor HTTP local
 python -m http.server 8000
