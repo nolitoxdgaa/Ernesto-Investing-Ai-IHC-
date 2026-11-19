@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Watchlist y alertas · Ernesto Investing AI</title><link rel="stylesheet" href="css/styles.css"></head>
+<body data-page="watchlist"><main>
+<h1>Watchlist y alertas</h1>
+<div class="row"><div><label for="add">Agregar activo</label><select id="add"></select></div><button id="bt" class="primary" type="button">Agregar</button></div>
+<div class="tw" style="margin-top:1rem"><table><thead><tr><th scope="col">Ticker</th><th scope="col">Último</th><th scope="col">1 d</th><th scope="col" class="l">Últimas 60 sesiones</th><th scope="col">Alerta</th><th scope="col">Quitar</th></tr></thead><tbody id="tb"></tbody></table></div>
+<h2>Alertas configuradas</h2><ul id="al"></ul>
+<script src="js/common.js"></script>
+<script>
+let D,W,A,P;
+window.init=async()=>{ D=await loadJSON("10_dashboard_mercado.json"); const w=await loadJSON("11_watchlist_alertas_portafolio_demo.json"); P=await loadJSON("02_precios_sinteticos_504d.json");
+ W=store("eia_watch")||w.watchlist_inicial; A=w.alertas; $("#add").innerHTML=D.map(d=>`<option>${d.ticker}</option>`).join(""); $("#bt").onclick=()=>{const t=$("#add").value; if(!W.includes(t)){W.push(t);store("eia_watch",W);render()}}; render(); };
+function spark(t){ const s=P.cierres[t].slice(-60), mn=Math.min(...s), mx=Math.max(...s); const pts=s.map((v,i)=>`${(i*3).toFixed(1)},${(28-28*(v-mn)/(mx-mn||1)).toFixed(1)}`).join(" "); return `<svg width="180" height="30" viewBox="0 0 180 30" role="img" aria-label="Últimas 60 sesiones de ${t}"><polyline fill="none" stroke="currentColor" stroke-width="1.6" points="${pts}"/></svg>`; }
+function alertTxt(t,d){ const a=A.filter(x=>x.ticker===t&&x.activa); if(!a.length) return "—"; return a.map(x=>{ let ok=false; if(x.tipo==="precio_sobre")ok=d.ultimo>=x.umbral; if(x.tipo==="precio_bajo")ok=d.ultimo<=x.umbral; if(x.tipo==="var_1d_menor_a_pct")ok=d.var_1d_pct<=x.umbral; if(x.tipo==="var_1d_mayor_a_pct")ok=d.var_1d_pct>=x.umbral; return `<span class="tag">${x.tipo} ${x.umbral}${ok?" · DISPARADA":""}</span>`}).join(" "); }
+function render(){ $("#tb").innerHTML=W.map(t=>{const d=D.find(x=>x.ticker===t);return `<tr><th scope="row">${t}</th><td>${fmt.n(d.ultimo)}</td><td class="${fmt.cls(d.var_1d_pct)}">${fmt.pct(d.var_1d_pct)}</td><td class="l">${spark(t)}</td><td>${alertTxt(t,d)}</td><td><button type="button" data-q="${t}" aria-label="Quitar ${t}">✕</button></td></tr>`}).join("");
+ document.querySelectorAll("[data-q]").forEach(b=>b.onclick=()=>{W=W.filter(x=>x!==b.dataset.q);store("eia_watch",W);render()});
+ $("#al").innerHTML=A.map(a=>`<li>${a.ticker}: ${a.tipo} ${a.umbral} ${a.activa?"(activa)":"(inactiva)"}</li>`).join(""); }
+</script></main></body></html>

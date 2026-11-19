@@ -1,0 +1,262 @@
+[
+ {
+  "ticker": "AAPL",
+  "nombre": "Apple",
+  "grupo": "Magnificas 7",
+  "sector": "Tecnologia",
+  "nota": "",
+  "precio_ancla_2026-11-11": 355.63,
+  "volatilidad_anual": 0.2892,
+  "beta_SPY": 1.035
+ },
+ {
+  "ticker": "MSFT",
+  "nombre": "Microsoft",
+  "grupo": "Magnificas 7",
+  "sector": "Tecnologia",
+  "nota": "",
+  "precio_ancla_2026-11-11": 521.13,
+  "volatilidad_anual": 0.2925,
+  "beta_SPY": 0.931
+ },
+ {
+  "ticker": "GOOGL",
+  "nombre": "Alphabet (Google)",
+  "grupo": "Magnificas 7",
+  "sector": "Comunicaciones",
+  "nota": "",
+  "precio_ancla_2026-11-11": 293.45,
+  "volatilidad_anual": 0.3327,
+  "beta_SPY": 1.105
+ },
+ {
+  "ticker": "AMZN",
+  "nombre": "Amazon",
+  "grupo": "Magnificas 7",
+  "sector": "Consumo discrecional",
+  "nota": "",
+  "precio_ancla_2026-11-11": 266.17,
+  "volatilidad_anual": 0.3417,
+  "beta_SPY": 1.33
+ },
+ {
+  "ticker": "NVDA",
+  "nombre": "NVIDIA",
+  "grupo": "Magnificas 7",
+  "sector": "Semiconductores",
+  "nota": "",
+  "precio_ancla_2026-11-11": 173.73,
+  "volatilidad_anual": 0.4474,
+  "beta_SPY": 1.823
+ },
+ {
+  "ticker": "META",
+  "nombre": "Meta Platforms",
+  "grupo": "Magnificas 7",
+  "sector": "Comunicaciones",
+  "nota": "",
+  "precio_ancla_2026-11-11": 628.77,
+  "volatilidad_anual": 0.3979,
+  "beta_SPY": 1.381
+ },
+ {
+  "ticker": "TSLA",
+  "nombre": "Tesla",
+  "grupo": "Magnificas 7",
+  "sector": "Autos electricos",
+  "nota": "",
+  "precio_ancla_2026-11-11": 390.84,
+  "volatilidad_anual": 0.5663,
+  "beta_SPY": 2.207
+ },
+ {
+  "ticker": "BVN",
+  "nombre": "Compania de Minas Buenaventura",
+  "grupo": "Mineras con operaciones en Peru",
+  "sector": "Oro/plata/cobre",
+  "nota": "Operaciones propias en Peru (Yanacocha, Colquijirca, Uchucchacua, El Brocal)",
+  "precio_ancla_2026-11-11": 26.1,
+  "volatilidad_anual": 0.4651,
+  "beta_SPY": 0.91
+ },
+ {
+  "ticker": "FSM",
+  "nombre": "Fortuna Mining",
+  "grupo": "Mineras con operaciones en Peru",
+  "sector": "Plata/oro",
+  "nota": "Mina Caylloma (Peru) y otras en Latinoamerica/Africa",
+  "precio_ancla_2026-11-11": 9.45,
+  "volatilidad_anual": 0.5788,
+  "beta_SPY": 1.116
+ },
+ {
+  "ticker": "SCCO",
+  "nombre": "Southern Copper",
+  "grupo": "Mineras con operaciones en Peru",
+  "sector": "Cobre",
+  "nota": "Cuajone, Toquepala y Tia Maria (Peru) y Mexico",
+  "precio_ancla_2026-11-11": 172.61,
+  "volatilidad_anual": 0.4639,
+  "beta_SPY": 1.55
+ },
+ {
+  "ticker": "BHP",
+  "nombre": "BHP Group",
+  "grupo": "Mineras con operaciones en Peru",
+  "sector": "Diversificada",
+  "nota": "Participacion en Antamina (Peru); verificar con fuente primaria",
+  "precio_ancla_2026-11-11": 82.06,
+  "volatilidad_anual": 0.3153,
+  "beta_SPY": 1.03
+ },
+ {
+  "ticker": "B",
+  "nombre": "Barrick Mining",
+  "grupo": "Mineras con operaciones en Peru",
+  "sector": "Oro/cobre",
+  "nota": "Ticker usado en Mineria de Datos; verificar exposicion actual en Peru con fuente primaria",
+  "precio_ancla_2026-11-11": 39.06,
+  "volatilidad_anual": 0.429,
+  "beta_SPY": 0.836
+ },
+ {
+  "ticker": "XLK",
+  "nombre": "Technology Select Sector SPDR",
+  "grupo": "ETF sectoriales",
+  "sector": "Tecnologia",
+  "nota": "",
+  "precio_ancla_2026-11-11": 174.36,
+  "volatilidad_anual": 0.2799,
+  "beta_SPY": 1.479
+ },
+ {
+  "ticker": "XLF",
+  "nombre": "Financial Select Sector SPDR",
+  "grupo": "ETF sectoriales",
+  "sector": "Financiero",
+  "nota": "",
+  "precio_ancla_2026-11-11": 58.63,
+  "volatilidad_anual": 0.1736,
+  "beta_SPY": 0.758
+ },
+ {
+  "ticker": "XLE",
+  "nombre": "Energy Select Sector SPDR",
+  "grupo": "ETF sectoriales",
+  "sector": "Energia",
+  "nota": "",
+  "precio_ancla_2026-11-11": 63.37,
+  "volatilidad_anual": 0.2409,
+  "beta_SPY": 0.437
+ },
+ {
+  "ticker": "XLV",
+  "nombre": "Health Care Select Sector SPDR",
+  "grupo": "ETF sectoriales",
+  "sector": "Salud",
+  "nota": "",
+  "precio_ancla_2026-11-11": 188.95,
+  "volatilidad_anual": 0.1703,
+  "beta_SPY": 0.428
+ },
+ {
+  "ticker": "XLY",
+  "nombre": "Consumer Discretionary Select Sector SPDR",
+  "grupo": "ETF sectoriales",
+  "sector": "Consumo discrecional",
+  "nota": "",
+  "precio_ancla_2026-11-11": 120.99,
+  "volatilidad_anual": 0.223,
+  "beta_SPY": 1.118
+ },
+ {
+  "ticker": "XLP",
+  "nombre": "Consumer Staples Select Sector SPDR",
+  "grupo": "ETF sectoriales",
+  "sector": "Consumo basico",
+  "nota": "",
+  "precio_ancla_2026-11-11": 91.45,
+  "volatilidad_anual": 0.1479,
+  "beta_SPY": 0.161
+ },
+ {
+  "ticker": "XLI",
+  "nombre": "Industrial Select Sector SPDR",
+  "grupo": "ETF sectoriales",
+  "sector": "Industriales",
+  "nota": "",
+  "precio_ancla_2026-11-11": 170.97,
+  "volatilidad_anual": 0.1855,
+  "beta_SPY": 0.898
+ },
+ {
+  "ticker": "XLU",
+  "nombre": "Utilities Select Sector SPDR",
+  "grupo": "ETF sectoriales",
+  "sector": "Servicios publicos",
+  "nota": "",
+  "precio_ancla_2026-11-11": 43.82,
+  "volatilidad_anual": 0.1603,
+  "beta_SPY": 0.318
+ },
+ {
+  "ticker": "XLB",
+  "nombre": "Materials Select Sector SPDR",
+  "grupo": "ETF sectoriales",
+  "sector": "Materiales",
+  "nota": "",
+  "precio_ancla_2026-11-11": 53.02,
+  "volatilidad_anual": 0.1909,
+  "beta_SPY": 0.775
+ },
+ {
+  "ticker": "XLRE",
+  "nombre": "Real Estate Select Sector SPDR",
+  "grupo": "ETF sectoriales",
+  "sector": "Inmobiliario",
+  "nota": "",
+  "precio_ancla_2026-11-11": 44.59,
+  "volatilidad_anual": 0.1618,
+  "beta_SPY": 0.473
+ },
+ {
+  "ticker": "XLC",
+  "nombre": "Communication Services Select Sector SPDR",
+  "grupo": "ETF sectoriales",
+  "sector": "Comunicaciones",
+  "nota": "",
+  "precio_ancla_2026-11-11": 108.6,
+  "volatilidad_anual": 0.1798,
+  "beta_SPY": 0.791
+ },
+ {
+  "ticker": "SPY",
+  "nombre": "SPDR S&P 500 ETF",
+  "grupo": "ETF globales y Peru",
+  "sector": "Mercado EE.UU. amplio",
+  "nota": "",
+  "precio_ancla_2026-11-11": 759.81,
+  "volatilidad_anual": 0.1682,
+  "beta_SPY": 1.0
+ },
+ {
+  "ticker": "QQQ",
+  "nombre": "Invesco QQQ (Nasdaq-100)",
+  "grupo": "ETF globales y Peru",
+  "sector": "Nasdaq-100",
+  "nota": "",
+  "precio_ancla_2026-11-11": 690.38,
+  "volatilidad_anual": 0.226,
+  "beta_SPY": 1.272
+ },
+ {
+  "ticker": "EPU",
+  "nombre": "iShares MSCI Peru and Global Exposure ETF",
+  "grupo": "ETF globales y Peru",
+  "sector": "Peru",
+  "nota": "",
+  "precio_ancla_2026-11-11": 81.82,
+  "volatilidad_anual": 0.2816,
+  "beta_SPY": 0.927
+ }
+]

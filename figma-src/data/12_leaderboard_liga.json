@@ -1,0 +1,82 @@
+[
+ {
+  "alias": "Trader Camila",
+  "equipo": "D",
+  "retorno_liga_pct": 9.17,
+  "operaciones": 57,
+  "sharpe": 0.65,
+  "posicion": 1
+ },
+ {
+  "alias": "Trader Jorge",
+  "equipo": "A",
+  "retorno_liga_pct": 4.71,
+  "operaciones": 28,
+  "sharpe": 0.81,
+  "posicion": 2
+ },
+ {
+  "alias": "Trader Ana",
+  "equipo": "A",
+  "retorno_liga_pct": 3.55,
+  "operaciones": 29,
+  "sharpe": -0.45,
+  "posicion": 3
+ },
+ {
+  "alias": "Trader Luis",
+  "equipo": "B",
+  "retorno_liga_pct": 3.39,
+  "operaciones": 17,
+  "sharpe": 1.54,
+  "posicion": 4
+ },
+ {
+  "alias": "Trader Sofia",
+  "equipo": "E",
+  "retorno_liga_pct": 3.06,
+  "operaciones": 10,
+  "sharpe": 0.07,
+  "posicion": 5
+ },
+ {
+  "alias": "Trader Diego",
+  "equipo": "D",
+  "retorno_liga_pct": 1.05,
+  "operaciones": 13,
+  "sharpe": 0.87,
+  "posicion": 6
+ },
+ {
+  "alias": "Trader Pedro",
+  "equipo": "E",
+  "retorno_liga_pct": -0.31,
+  "operaciones": 12,
+  "sharpe": 0.95,
+  "posicion": 7
+ },
+ {
+  "alias": "Trader Andres",
+  "equipo": "C",
+  "retorno_liga_pct": -0.7,
+  "operaciones": 37,
+  "sharpe": 1.48,
+  "posicion": 8
+ },
+ {
+  "alias": "Trader Marta",
+  "equipo": "C",
+  "retorno_liga_pct": -1.94,
+  "operaciones": 52,
+  "sharpe": 0.72,
+  "posicion": 9
+ },
+ {
+  "alias": "Trader Rosa",
+  "equipo": "B",
+  "retorno_liga_pct": -2.23,
+  "operaciones": 44,
+  "sharpe": 0.31,
+  "posicion": 10
+ }
+]

@@ -1,0 +1,11 @@
+{
+  "title": "Ernesto Investing AI",
+  "description": "Explore simulated market forecasts, portfolio optimization, risk comparisons, and backtesting to support learning and investment strategy research.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

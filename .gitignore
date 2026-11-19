@@ -1,4 +1,29 @@
+# Dependencias
+node_modules/
+.pnpm-store/
+
+# Sistema Operativo
 .DS_Store
 Thumbs.db
 desktop.ini
-node_modules/
+
+# Credenciales y variables de entorno
+.env
+.env.*
+*.key
+*.pem
+*.token
+*.cert
+credentials.json
+secrets.json
+
+# Caches y compilaciones
+dist/
+.cache/
+*.log
+.vite/
+.mise/
+
+# IDEs
+.vscode/
+.idea/

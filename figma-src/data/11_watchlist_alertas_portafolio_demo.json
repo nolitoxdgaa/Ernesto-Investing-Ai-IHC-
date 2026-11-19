@@ -1,0 +1,55 @@
+{
+ "watchlist_inicial": [
+  "NVDA",
+  "SPY",
+  "EPU",
+  "SCCO",
+  "XLK"
+ ],
+ "alertas": [
+  {
+   "ticker": "NVDA",
+   "tipo": "precio_sobre",
+   "umbral": 182.42,
+   "activa": true
+  },
+  {
+   "ticker": "SCCO",
+   "tipo": "precio_bajo",
+   "umbral": 163.98,
+   "activa": true
+  },
+  {
+   "ticker": "SPY",
+   "tipo": "var_1d_menor_a_pct",
+   "umbral": -2.0,
+   "activa": true
+  },
+  {
+   "ticker": "EPU",
+   "tipo": "var_1d_mayor_a_pct",
+   "umbral": 2.0,
+   "activa": false
+  }
+ ],
+ "portafolio_demo": {
+  "efectivo": 25000.0,
+  "posiciones": [
+   {
+    "ticker": "SPY",
+    "cantidad": 20,
+    "costo": 706.62
+   },
+   {
+    "ticker": "NVDA",
+    "cantidad": 60,
+    "costo": 152.88
+   },
+   {
+    "ticker": "SCCO",
+    "cantidad": 40,
+    "costo": 179.51
+   }
+  ]
+ }
+}

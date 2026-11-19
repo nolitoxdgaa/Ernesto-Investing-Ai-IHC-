@@ -1,0 +1,246 @@
+{
+ "semilla": 2026,
+ "fecha_ancla_precios": "2026-11-11",
+ "fecha_generacion": "2026-11-13",
+ "fuentes_de_anclaje": [
+  "Cierres ajustados de 28 activos de Yahoo Finance (Mineria de Datos, Lab 11/12; hasta 2026-11-11)",
+  "GOOGL, AMZN, NVDA, META, TSLA y EPU descargados de Yahoo Finance el 2026-11-13 (hasta 2026-11-11)"
+ ],
+ "que_es_real": "Solo el ultimo precio de cada ticker y las estimaciones de volatilidad anual, beta y correlacion de las ultimas 500 sesiones.",
+ "que_es_sintetico": "Toda la historia de 504 sesiones, el OHLCV, las probabilidades de los clasificadores, los 30 precios futuros de cada regresor, los frentes de Markowitz/NSGA-II/NSGA-III, las carteras y el backtesting.",
+ "patrones_aplicados": [
+  {
+   "id": "P1",
+   "nombre": "Colas pesadas",
+   "detalle": "Shocks t de Student con 5 grados de libertad, escalados a varianza 1"
+  },
+  {
+   "id": "P2",
+   "nombre": "Regimenes de volatilidad",
+   "detalle": "Cadena de Markov calma (x0.85) / estres (x1.8); correccion forzada en las sesiones 330-352"
+  },
+  {
+   "id": "P3",
+   "nombre": "Correlaciones reales",
+   "detalle": "Cholesky de la matriz de correlacion estimada (recortada a semidefinida positiva)"
+  },
+  {
+   "id": "P4",
+   "nombre": "Saltos por resultados trimestrales",
+   "detalle": "Magnificas 7 y mineras: salto de N(0, 3.5 %) y N(0, 2.8 %) en 8 fechas"
+  },
+  {
+   "id": "P5",
+   "nombre": "Momentum reciente coherente con la tendencia latente",
+   "detalle": "Deriva de las ultimas 60 sesiones = (p0 - 0.5) * volatilidad * 10 / 252"
+  },
+  {
+   "id": "P6",
+   "nombre": "Clasificadores binarios casi aleatorios",
+   "detalle": "Exactitud 52-57 %, AUC 0.54-0.62; ruido de modelo 7-8.5 puntos de probabilidad alrededor de la probabilidad latente"
+  },
+  {
+   "id": "P7",
+   "nombre": "Regresores: arboles planos, lineales y recurrentes extrapolan",
+   "detalle": "Arboles/kNN/Random Forest = 55 % de la tendencia; DL con ondulacion de corto plazo"
+  },
+  {
+   "id": "P8",
+   "nombre": "Frentes NSGA ligeramente por debajo de Markowitz",
+   "detalle": "Perturbaciones del 18 % sobre la frontera de Markowitz; filtro de no dominancia en 2 y 3 objetivos"
+  }
+ ],
+ "parametros": {
+  "N_HIST": 504,
+  "N_FC": 30,
+  "RF": 0.04,
+  "TOPE_PESO": 0.25,
+  "clasificadores": 18,
+  "regresores": 18
+ },
+ "parametros_por_ticker": [
+  {
+   "ticker": "AAPL",
+   "vol_anual_estimada": 0.2892,
+   "beta_SPY": 1.035,
+   "p_sube_latente": 0.451,
+   "retorno_esperado_30d_simulado_pct": -1.48
+  },
+  {
+   "ticker": "MSFT",
+   "vol_anual_estimada": 0.2925,
+   "beta_SPY": 0.931,
+   "p_sube_latente": 0.554,
+   "retorno_esperado_30d_simulado_pct": 1.64
+  },
+  {
+   "ticker": "GOOGL",
+   "vol_anual_estimada": 0.3327,
+   "beta_SPY": 1.105,
+   "p_sube_latente": 0.4,
+   "retorno_esperado_30d_simulado_pct": -3.44
+  },
+  {
+   "ticker": "AMZN",
+   "vol_anual_estimada": 0.3417,
+   "beta_SPY": 1.33,
+   "p_sube_latente": 0.66,
+   "retorno_esperado_30d_simulado_pct": 5.66
+  },
+  {
+   "ticker": "NVDA",
+   "vol_anual_estimada": 0.4474,
+   "beta_SPY": 1.823,
+   "p_sube_latente": 0.64,
+   "retorno_esperado_30d_simulado_pct": 6.48
+  },
+  {
+   "ticker": "META",
+   "vol_anual_estimada": 0.3979,
+   "beta_SPY": 1.381,
+   "p_sube_latente": 0.501,
+   "retorno_esperado_30d_simulado_pct": 0.03
+  },
+  {
+   "ticker": "TSLA",
+   "vol_anual_estimada": 0.5663,
+   "beta_SPY": 2.207,
+   "p_sube_latente": 0.44,
+   "retorno_esperado_30d_simulado_pct": -3.52
+  },
+  {
+   "ticker": "BVN",
+   "vol_anual_estimada": 0.4651,
+   "beta_SPY": 0.91,
+   "p_sube_latente": 0.545,
+   "retorno_esperado_30d_simulado_pct": 2.18
+  },
+  {
+   "ticker": "FSM",
+   "vol_anual_estimada": 0.5788,
+   "beta_SPY": 1.116,
+   "p_sube_latente": 0.488,
+   "retorno_esperado_30d_simulado_pct": -0.7
+  },
+  {
+   "ticker": "SCCO",
+   "vol_anual_estimada": 0.4639,
+   "beta_SPY": 1.55,
+   "p_sube_latente": 0.61,
+   "retorno_esperado_30d_simulado_pct": 5.28
+  },
+  {
+   "ticker": "BHP",
+   "vol_anual_estimada": 0.3153,
+   "beta_SPY": 1.03,
+   "p_sube_latente": 0.587,
+   "retorno_esperado_30d_simulado_pct": 2.84
+  },
+  {
+   "ticker": "B",
+   "vol_anual_estimada": 0.429,
+   "beta_SPY": 0.836,
+   "p_sube_latente": 0.566,
+   "retorno_esperado_30d_simulado_pct": 2.95
+  },
+  {
+   "ticker": "XLK",
+   "vol_anual_estimada": 0.2799,
+   "beta_SPY": 1.479,
+   "p_sube_latente": 0.494,
+   "retorno_esperado_30d_simulado_pct": -0.19
+  },
+  {
+   "ticker": "XLF",
+   "vol_anual_estimada": 0.1736,
+   "beta_SPY": 0.758,
+   "p_sube_latente": 0.491,
+   "retorno_esperado_30d_simulado_pct": -0.15
+  },
+  {
+   "ticker": "XLE",
+   "vol_anual_estimada": 0.2409,
+   "beta_SPY": 0.437,
+   "p_sube_latente": 0.46,
+   "retorno_esperado_30d_simulado_pct": -1.0
+  },
+  {
+   "ticker": "XLV",
+   "vol_anual_estimada": 0.1703,
+   "beta_SPY": 0.428,
+   "p_sube_latente": 0.55,
+   "retorno_esperado_30d_simulado_pct": 0.88
+  },
+  {
+   "ticker": "XLY",
+   "vol_anual_estimada": 0.223,
+   "beta_SPY": 1.118,
+   "p_sube_latente": 0.46,
+   "retorno_esperado_30d_simulado_pct": -0.93
+  },
+  {
+   "ticker": "XLP",
+   "vol_anual_estimada": 0.1479,
+   "beta_SPY": 0.161,
+   "p_sube_latente": 0.56,
+   "retorno_esperado_30d_simulado_pct": 0.92
+  },
+  {
+   "ticker": "XLI",
+   "vol_anual_estimada": 0.1855,
+   "beta_SPY": 0.898,
+   "p_sube_latente": 0.487,
+   "retorno_esperado_30d_simulado_pct": -0.25
+  },
+  {
+   "ticker": "XLU",
+   "vol_anual_estimada": 0.1603,
+   "beta_SPY": 0.318,
+   "p_sube_latente": 0.57,
+   "retorno_esperado_30d_simulado_pct": 1.16
+  },
+  {
+   "ticker": "XLB",
+   "vol_anual_estimada": 0.1909,
+   "beta_SPY": 0.775,
+   "p_sube_latente": 0.452,
+   "retorno_esperado_30d_simulado_pct": -0.94
+  },
+  {
+   "ticker": "XLRE",
+   "vol_anual_estimada": 0.1618,
+   "beta_SPY": 0.473,
+   "p_sube_latente": 0.45,
+   "retorno_esperado_30d_simulado_pct": -0.84
+  },
+  {
+   "ticker": "XLC",
+   "vol_anual_estimada": 0.1798,
+   "beta_SPY": 0.791,
+   "p_sube_latente": 0.48,
+   "retorno_esperado_30d_simulado_pct": -0.37
+  },
+  {
+   "ticker": "SPY",
+   "vol_anual_estimada": 0.1682,
+   "beta_SPY": 1.0,
+   "p_sube_latente": 0.6,
+   "retorno_esperado_30d_simulado_pct": 1.74
+  },
+  {
+   "ticker": "QQQ",
+   "vol_anual_estimada": 0.226,
+   "beta_SPY": 1.272,
+   "p_sube_latente": 0.62,
+   "retorno_esperado_30d_simulado_pct": 2.81
+  },
+  {
+   "ticker": "EPU",
+   "vol_anual_estimada": 0.2816,
+   "beta_SPY": 0.927,
+   "p_sube_latente": 0.59,
+   "retorno_esperado_30d_simulado_pct": 2.62
+  }
+ ],
+ "aviso": "Material educativo. Datos sinteticos: no son precios reales ni asesoria de inversion."
+}

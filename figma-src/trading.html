@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trading simulado · Ernesto Investing AI</title><link rel="stylesheet" href="css/styles.css"></head>
+<body data-page="trading"><main>
+<h1>Trading simulado</h1>
+<p class="mut">Órdenes a mercado al último precio sintético. El efectivo y las posiciones se guardan en este navegador.</p>
+<div class="grid"><div class="card"><h2 style="margin-top:0">Orden</h2><form id="f" novalidate><label for="t">Activo</label><select id="t"></select><label for="s">Lado</label><select id="s"><option value="C">Comprar</option><option value="V">Vender</option></select><label for="q">Cantidad</label><input id="q" type="number" min="1" step="1" value="10" aria-describedby="msg"><p id="msg" role="status" class="mut"></p><button class="primary" type="submit">Enviar orden</button> <button type="button" id="rs">Reiniciar demo</button></form></div>
+<div class="card kpi"><div class="mut">Efectivo</div><div class="v" id="cash"></div><div class="mut" style="margin-top:.6rem">Valor del portafolio</div><div class="v" id="nav"></div></div></div>
+<h2>Posiciones</h2><div class="tw"><table><thead><tr><th scope="col">Ticker</th><th scope="col">Cant.</th><th scope="col">Costo prom.</th><th scope="col">Último</th><th scope="col">P&amp;L</th></tr></thead><tbody id="tb"></tbody></table></div>
+<script src="js/common.js"></script>
+<script>
+let D,S;
+window.init=async()=>{ D=await loadJSON("10_dashboard_mercado.json"); const w=await loadJSON("11_watchlist_alertas_portafolio_demo.json"); S=store("eia_port")||JSON.parse(JSON.stringify(w.portafolio_demo));
+ $("#t").innerHTML=D.map(d=>`<option>${d.ticker}</option>`).join(""); $("#f").onsubmit=e=>{e.preventDefault();orden()}; $("#rs").onclick=()=>{S=JSON.parse(JSON.stringify(w.portafolio_demo));store("eia_port",S);render("Demo reiniciada.")}; render(); };
+const px=t=>D.find(d=>d.ticker===t).ultimo;
+function orden(){ const t=$("#t").value,q=parseInt($("#q").value,10),lado=$("#s").value; if(!(q>=1)) return render("Ingrese una cantidad entera mayor o igual a 1.",1); const p=px(t),pos=S.posiciones.find(x=>x.ticker===t);
+ if(lado==="C"){ if(q*p>S.efectivo) return render("Efectivo insuficiente para esa orden.",1); S.efectivo-=q*p; if(pos){pos.costo=(pos.costo*pos.cantidad+q*p)/(pos.cantidad+q);pos.cantidad+=q}else S.posiciones.push({ticker:t,cantidad:q,costo:p}); }
+ else{ if(!pos||pos.cantidad<q) return render("No tiene esa cantidad para vender.",1); pos.cantidad-=q; S.efectivo+=q*p; S.posiciones=S.posiciones.filter(x=>x.cantidad>0); }
+ store("eia_port",S); render(`Orden ejecutada: ${lado==="C"?"compra":"venta"} de ${q} ${t} a ${fmt.usd(p)}.`); }
+function render(msg,err){ $("#msg").textContent=msg||""; $("#msg").className=err?"err":"mut"; let nav=S.efectivo;
+ $("#tb").innerHTML=S.posiciones.map(x=>{const p=px(x.ticker),pl=(p-x.costo)*x.cantidad;nav+=p*x.cantidad;return `<tr><th scope="row">${x.ticker}</th><td>${x.cantidad}</td><td>${fmt.n(x.costo)}</td><td>${fmt.n(p)}</td><td class="${fmt.cls(pl)}">${fmt.usd(pl)}</td></tr>`}).join(""); $("#cash").textContent=fmt.usd(S.efectivo); $("#nav").textContent=fmt.usd(nav); }
+</script></main></body></html>

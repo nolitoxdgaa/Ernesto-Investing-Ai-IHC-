@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard · Ernesto Investing AI</title><link rel="stylesheet" href="css/styles.css">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script></head>
+<body data-page="dashboard"><main>
+<h1>Dashboard de mercado</h1>
+<div class="grid" id="kpis" aria-live="polite"></div>
+<h2>Velas del activo (últimas 120 sesiones sintéticas)</h2>
+<div class="row"><div><label for="sel">Activo</label><select id="sel"></select></div><div><label for="grp">Filtrar tabla por grupo</label><select id="grp"><option value="">Todos</option></select></div></div>
+<div id="chart" class="chart" role="img" aria-label="Gráfico de velas del activo seleccionado"></div>
+<h2>Universo de 26 activos</h2>
+<div class="tw"><table><caption class="mut" style="text-align:left;padding:.4rem">Variaciones y riesgo (datos sintéticos)</caption><thead><tr><th scope="col">Ticker</th><th scope="col" class="l">Grupo</th><th scope="col">Último</th><th scope="col">1 d</th><th scope="col">5 d</th><th scope="col">1 m</th><th scope="col">3 m</th><th scope="col">Vol. anual</th><th scope="col">Beta</th></tr></thead><tbody id="tb"></tbody></table></div>
+<script src="js/common.js"></script>
+<script>
+let D,O,ch;
+window.init=async()=>{ D=await loadJSON("10_dashboard_mercado.json"); O=await loadJSON("03_ohlcv_sintetico_120d.json");
+ $("#kpis").innerHTML=["SPY","QQQ","EPU"].map(t=>{const d=D.find(x=>x.ticker===t);return `<div class="card kpi"><div class="mut">${t} · ${d.nombre}</div><div class="v">${fmt.usd(d.ultimo)}</div><div class="${fmt.cls(d.var_1d_pct)}">${fmt.pct(d.var_1d_pct)} hoy</div></div>`}).join("");
+ $("#sel").innerHTML=D.map(d=>`<option>${d.ticker}</option>`).join(""); const gs=[...new Set(D.map(d=>d.grupo))]; $("#grp").insertAdjacentHTML("beforeend",gs.map(g=>`<option>${g}</option>`).join(""));
+ $("#sel").onchange=draw; $("#grp").onchange=table; table(); draw(); window.addEventListener("resize",()=>ch&&ch.resize()); window.onTheme=draw; };
+function table(){ const g=$("#grp").value; $("#tb").innerHTML=D.filter(d=>!g||d.grupo===g).map(d=>`<tr><th scope="row">${d.ticker}</th><td class="l">${d.grupo}</td><td>${fmt.n(d.ultimo)}</td>${["var_1d_pct","var_5d_pct","var_1m_pct","var_3m_pct"].map(k=>`<td class="${fmt.cls(d[k])}">${fmt.pct(d[k])}</td>`).join("")}<td>${d.volatilidad_anual_pct} %</td><td>${d.beta_vs_SPY}</td></tr>`).join(""); }
+function draw(){ const t=$("#sel").value,s=O.series[t]; const el=$("#chart"); if(!window.echarts){el.textContent="No se pudo cargar ECharts (se requiere conexión).";return}
+ if(ch)ch.dispose(); ch=echarts.init(el); const dark=document.documentElement.getAttribute("data-theme")==="dark"||(!document.documentElement.getAttribute("data-theme")&&matchMedia("(prefers-color-scheme:dark)").matches); const tc=dark?"#e9eff5":"#14202e";
+ ch.setOption({animation:false,textStyle:{color:tc},tooltip:{trigger:"axis"},grid:{left:55,right:15,top:20,bottom:45},xAxis:{type:"category",data:O.fechas,axisLabel:{color:tc}},yAxis:{scale:true,axisLabel:{color:tc},splitLine:{lineStyle:{color:dark?"#2c3a49":"#d3dce6"}}},
+  dataZoom:[{type:"inside"},{type:"slider",height:18}],series:[{type:"candlestick",name:t,data:s.o.map((o,i)=>[o,s.c[i],s.l[i],s.h[i]]),itemStyle:{color:"#0a7d3c",color0:"#b3261e",borderColor:"#0a7d3c",borderColor0:"#b3261e"}}]}); }
+</script></main></body></html>

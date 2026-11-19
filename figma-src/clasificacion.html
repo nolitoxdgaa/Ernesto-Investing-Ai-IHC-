@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Clasificación binaria de tendencia · Ernesto Investing AI</title><link rel="stylesheet" href="css/styles.css">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script></head>
+<body data-page="clasificacion"><main>
+<h1>Clasificación binaria de tendencia</h1>
+<p class="aviso top" role="note"><strong>Datos sintéticos · resultados simulados</strong></p>
+<p class="lead">Cada celda indica si el modelo espera que el activo SUBA o BAJE en las próximas 30 sesiones, con su probabilidad de SUBE. Solo existen dos clases: no hay tercera salida.</p>
+<div class="row"><div><label for="grp">Grupo</label><select id="grp"></select></div></div>
+<div class="leg" aria-label="Leyenda"><span><span class="sw" style="background:color-mix(in srgb,var(--up) 30%,var(--panel))"></span>▲ SUBE (más intenso = mayor probabilidad)</span><span><span class="sw" style="background:color-mix(in srgb,var(--dn) 30%,var(--panel))"></span>▼ BAJA (más intenso = menor probabilidad de SUBE)</span><span class="mut">Número = P(SUBE) en %</span></div>
+<div class="two"><div class="tw" style="max-height:34rem" tabindex="0" role="region" aria-label="Mapa de calor activo por modelo"><table class="heat" id="heat"></table></div>
+<aside class="card" id="cons" aria-live="polite"></aside></div>
+<h2>Métricas por modelo</h2><div class="tw"><table id="mt"></table></div>
+<script src="js/common.js"></script><script src="js/modulos.js"></script></main></body></html>

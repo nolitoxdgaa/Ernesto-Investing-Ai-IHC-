@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Optimizador riesgo–retorno · Ernesto Investing AI</title><link rel="stylesheet" href="css/styles.css">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script></head>
+<body data-page="optimizador"><main>
+<h1>Optimizador riesgo–retorno</h1>
+<p class="aviso top" role="note"><strong>Datos sintéticos · resultados simulados</strong></p>
+<p class="lead">Frontera de Markowitz con los 12 activos elegibles (consenso SUBE y proyección positiva), y frentes NSGA-II y NSGA-III simulados. Color = CVaR 95 % diario; forma = algoritmo.</p>
+<div class="row"><div><label for="pt">Portafolio seleccionado</label><select id="pt"></select></div><div class="mut" id="cv"></div></div>
+<div class="two" style="margin-top:1rem"><div class="card"><div id="chart" class="chart" style="height:28rem" role="img" aria-label="Dispersión riesgo–retorno de los portafolios optimizados"></div><p class="mut" style="margin:.3rem 0 0;font-size:.88rem">Línea = Markowitz · círculos = NSGA-II · rombos = NSGA-III. Pulse un punto o use el selector.</p></div><aside class="card" id="comp" aria-live="polite"></aside></div>
+<script src="js/common.js"></script><script src="js/modulos.js"></script></main></body></html>

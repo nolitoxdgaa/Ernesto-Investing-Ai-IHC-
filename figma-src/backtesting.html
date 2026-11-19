@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Backtesting walk-forward · Ernesto Investing AI</title><link rel="stylesheet" href="css/styles.css">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script></head>
+<body data-page="backtesting"><main>
+<h1>Backtesting walk-forward</h1>
+<p class="aviso top" role="note"><strong>Datos sintéticos · resultados simulados</strong></p>
+<p class="lead">Rebalanceo mensual (21 sesiones), ventana de 126 sesiones, filtro de momentum y comisión de 5 pb. Capital inicial base 100 sobre historia sintética.</p>
+<div class="card"><div id="eq" class="chart" style="height:24rem" role="img" aria-label="Curvas de capital base 100"></div><p class="mut" style="margin:.2rem 0 0;font-size:.88rem">Pulse los nombres de la leyenda para ocultar o mostrar series.</p></div>
+<h2>Drawdown</h2><div class="card"><div id="dd" class="chart" style="height:16rem" role="img" aria-label="Curva de drawdown en porcentaje"></div></div>
+<h2>Métricas</h2><div class="tw"><table id="mt"></table></div>
+<h2>Línea de tiempo de rebalanceos</h2><div class="row"><div><label for="car">Cartera</label><select id="car"></select></div></div>
+<ol class="tl" id="tl" aria-label="Fechas de rebalanceo"></ol><div class="card" id="rb" aria-live="polite"></div>
+<script src="js/common.js"></script><script src="js/modulos.js"></script></main></body></html>

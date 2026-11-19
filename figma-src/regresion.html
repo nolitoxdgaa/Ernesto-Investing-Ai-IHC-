@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Regresión de precio a 30 sesiones · Ernesto Investing AI</title><link rel="stylesheet" href="css/styles.css">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script></head>
+<body data-page="regresion"><main>
+<h1>Regresión de precio a 30 sesiones</h1>
+<p class="aviso top" role="note"><strong>Datos sintéticos · resultados simulados</strong></p>
+<p class="lead">Historia reciente y 30 sesiones proyectadas con 18 regresores (11 ML y 7 DL). La línea es la mediana y la banda cubre p10–p90.</p>
+<div class="row"><div><label for="sel">Activo</label><select id="sel"></select></div><fieldset style="border:0;padding:0;margin:0"><legend style="font-weight:600;margin-bottom:.2rem">Familia de modelos</legend><div class="seg" role="radiogroup"><label><input type="radio" name="fam" value="ML"><span>ML (11)</span></label><label><input type="radio" name="fam" value="DL"><span>DL (7)</span></label><label><input type="radio" name="fam" value="ALL" checked><span>Todos (18)</span></label></div></fieldset></div>
+<div class="two" style="margin-top:1rem"><div class="card"><div id="chart" class="chart" style="height:26rem" role="img" aria-label="Gráfico de historia y proyección a 30 sesiones"></div></div><aside class="card" id="res" aria-live="polite"></aside></div>
+<h2>Error de cada modelo (validación sintética)</h2><div class="tw"><table id="mt"></table></div>
+<script src="js/common.js"></script><script src="js/modulos.js"></script></main></body></html>
