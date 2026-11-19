@@ -169,3 +169,32 @@ data/09_backtesting_portafolios.json {fechas (253), carteras{Conservador|Moderad
   <verification>Comprobar que la última cifra de cada curva coincide con retorno_total_pct (curva_final/100 − 1) dentro de 0,05 puntos porcentuales.</verification>  
 </prompt>
 ```
+
+---
+
+## 🔗 Fase 4 · Integración Final del Sitio
+
+### Prompt P07 — Integración Final de los 9 Módulos
+```xml
+<prompt id="P07" nombre="Claude: integración final de los 9 módulos en un solo sitio">  
+  <role>Eres un arquitecto front-end que integra módulos independientes en un sitio coherente.</role>  
+  <context>  
+Repositorio del equipo con 9 páginas HTML (4 heredadas y 5 nuevas), js/common.js, css/styles.css, data/ y figma-src/.  
+Hoy cada página funciona sola; deben comportarse como un solo sistema.  
+  </context>  
+  <task>  
+1. Unificar la barra de navegación (misma en las 9 páginas), el tema claro/oscuro y el selector de idioma ES-PE / EN-US (bonificación) con Intl.  
+2. Estado compartido en localStorage: watchlist, portafolio de trading, portafolio elegido y activo seleccionado, entre módulos.  
+3. Enlaces cruzados: del activo en Clasificación a su Regresión, y de allí al Optimizador.  
+4. Eliminar duplicación de CSS y JavaScript; un solo css/styles.css y js/common.js.  
+5. Escribir un script de prueba con Playwright que abra las 9 páginas a 1280 y a 390 px y reporte errores de consola, desborde horizontal y elementos clave.  
+6. Indicar los pasos de despliegue en GitHub Pages y la URL final.  
+  </task>  
+  <constraints>  
+- No modificar los JSON de data/. No agregar frameworks.  
+- Todo cambio debe conservar la accesibilidad: foco visible, enlace «Saltar al contenido», etiquetas.  
+  </constraints>  
+  <output>Archivos modificados completos, script de pruebas y lista de verificación.</output>  
+  <verification>Ejecutar el script de Playwright: 9 páginas sin errores de consola, sin desborde a 390 px; recorrer el sitio publicado desde el celular.</verification>  
+</prompt>
+```
