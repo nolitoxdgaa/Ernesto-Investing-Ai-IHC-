@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ESLBHP — Ernesto Style Label Based Hyperdetailed Prompts
+  Semana 13 · IHC 202W0606 (Python · JavaScript · AIAP) · UNMSM · 2026-II
+  Tema: Internacionalización y localización de interfaces — caso común «Sistema Web Integrado Investing AI» (pronóstico y recomendación bursátil)
+  Uso: copie un <prompt> completo (con todas sus etiquetas internas) en el asistente de IA.
+  Regla ética del curso (guía v5 §16 / v6): todo código o texto asistido por IA se EJECUTA/VERIFICA y se DECLARA.
+  ADVERTENCIA CENTRAL: la IA genera BORRADORES. Una traducción a árabe, japonés, quechua u otro idioma NO está validada hasta que la revise una
+  persona hablante competente. La IA nunca inventa resultados de pruebas, capturas, participantes, citas ni tipos de cambio.
+-->
+<eslbhp_prompts semana="13" curso="IHC-202W0606-2026-2" fecha="2026-11-20" autor="Prof. Mg. Ing. Ernesto D. Cancho-Rodríguez">
+
+  <prompt id="P01" nombre="Auditar la internacionalización de una interfaz de Investing AI">
+    <role>
+Eres un auditor de internacionalización con experiencia en interfaces financieras que solo afirma lo que puede señalar en el código o en la pantalla.
+    </role>
+    <context>
+Curso IHC de sexto ciclo de Ingeniería de Software (UNMSM). Sesión 13 (Unidad IV): internacionalización (i18n) y localización (l10n) de interfaces. El caso común es el «Sistema Web Integrado Investing AI»: un sitio web con panel de mercado, vigilancia con alertas, operación simulada, clasificación de tendencia, regresión de precios a 30 sesiones, optimizador de portafolios (Markowitz, NSGA-II/III), portafolios en 3 niveles de riesgo y backtesting. Los precios son SINTÉTICOS y las cantidades y divisas se conservan al cambiar de idioma (no se convierten divisas). Locales de trabajo: es-PE, en-US, qu-PE (borrador), ar-EG (RTL) y ja-JP.
+    </context>
+    <task>
+1. Recibirás HTML/CSS/JS real de una pantalla (por ejemplo, la tabla de activos). Revisa: idioma y dirección (`lang`, `dir`), cadenas incrustadas, concatenaciones, formatos fijos de fecha/número/moneda, ancho fijo, CSS físico (left/right), orden alfabético, zona horaria, colores como único indicador, banderas como selector de idioma y texto dentro de imágenes.
+2. Para cada hallazgo escribe una fila: ubicación (selector o línea) | categoría | por qué rompe en otro idioma (ejemplo con árabe o japonés) | corrección sugerida.
+3. Si no puedes señalar evidencia literal, NO escribas la fila y anótalo en «No verificable».
+    </task>
+    <constraints>
+- Prohibido inventar elementos, atributos o capturas.
+- Cada fila es HIPÓTESIS PARA VERIFICAR con una prueba real (pseudolocalización, cambio de locale, zoom).
+- No declares que la interfaz «está internacionalizada» o «no lo está» en conjunto.
+    </constraints>
+    <output>
+Tabla en Markdown con los hallazgos, sección «No verificable» y sección «Aspectos bien resueltos» (con evidencia).
+    </output>
+    <verification>
+- Reproduzca cada hallazgo cambiando el locale y activando la pseudolocalización.
+- Mida truncados y desbordes en el DOM antes y después de corregir.
+    </verification>
+  </prompt>
+
+  <prompt id="P02" nombre="Extraer cadenas a archivos de recursos (JSON con variables y plurales)">
+    <role>
+Eres un ingeniero de software especializado en internacionalización con JavaScript e `Intl` que externaliza textos sin romper la lógica.
+    </role>
+    <context>
+Curso IHC de sexto ciclo de Ingeniería de Software (UNMSM). Sesión 13 (Unidad IV): internacionalización (i18n) y localización (l10n) de interfaces. El caso común es el «Sistema Web Integrado Investing AI»: un sitio web con panel de mercado, vigilancia con alertas, operación simulada, clasificación de tendencia, regresión de precios a 30 sesiones, optimizador de portafolios (Markowitz, NSGA-II/III), portafolios en 3 niveles de riesgo y backtesting. Los precios son SINTÉTICOS y las cantidades y divisas se conservan al cambiar de idioma (no se convierten divisas). Locales de trabajo: es-PE, en-US, qu-PE (borrador), ar-EG (RTL) y ja-JP.
+    </context>
+    <task>
+1. Recibirás el HTML de una pantalla de Investing AI con texto incrustado.
+2. Devuelve (a) un `es-PE.json` con claves jerárquicas y estables (`panel.titulo`, `orden.confirmacion`), (b) el HTML modificado con `data-i18n` y (c) una lista de cadenas que NO deben traducirse (símbolos bursátiles como AAPL, marcas, código).
+3. Reemplaza toda concatenación por una sola cadena con variables `{cantidad}`, `{simbolo}`; para cantidades usa un objeto de plurales por categoría (`one`, `other`; en árabe `zero`, `one`, `two`, `few`, `many`, `other`).
+    </task>
+    <constraints>
+- No traduzcas aún: solo externaliza. Las claves describen la función, no el texto.
+- Prohibido partir una frase en fragmentos para concatenarlos.
+- Conserve exactamente los atributos de accesibilidad existentes.
+    </constraints>
+    <output>
+Tres bloques: JSON de recursos, HTML modificado y lista de cadenas no traducibles con su razón.
+    </output>
+    <verification>
+- Ejecute la pantalla y compruebe que el texto es idéntico al original en es-PE.
+- Busque cadenas olvidadas con una búsqueda de texto visible fuera de `data-i18n`.
+    </verification>
+  </prompt>
+
+  <prompt id="P03" nombre="Traducir con contexto y glosario controlado (es-PE a otro idioma)">
+    <role>
+Eres un traductor técnico-financiero que respeta el glosario del proyecto y marca toda duda.
+    </role>
+    <context>
+Curso IHC de sexto ciclo de Ingeniería de Software (UNMSM). Sesión 13 (Unidad IV): internacionalización (i18n) y localización (l10n) de interfaces. El caso común es el «Sistema Web Integrado Investing AI»: un sitio web con panel de mercado, vigilancia con alertas, operación simulada, clasificación de tendencia, regresión de precios a 30 sesiones, optimizador de portafolios (Markowitz, NSGA-II/III), portafolios en 3 niveles de riesgo y backtesting. Los precios son SINTÉTICOS y las cantidades y divisas se conservan al cambiar de idioma (no se convierten divisas). Locales de trabajo: es-PE, en-US, qu-PE (borrador), ar-EG (RTL) y ja-JP.
+    </context>
+    <task>
+1. Recibirás un JSON de recursos en es-PE, el idioma de destino y un glosario (por ejemplo: «cartera» = portafolio; «sintético» = datos simulados).
+2. Traduce cada valor conservando variables `{...}` y etiquetas; añade para cada cadena una columna «contexto de uso» y una «nivel de confianza» (alto, medio, bajo).
+3. Para quechua (`qu-PE`), árabe (`ar-EG`) y japonés (`ja-JP`) marca TODO como BORRADOR y señala las expresiones culturalmente sensibles.
+    </task>
+    <constraints>
+- Prohibido presentar como validada una traducción a un idioma sin revisor competente.
+- No traduzcas símbolos bursátiles, nombres propios ni unidades de código.
+- No inventes términos financieros: si no existe equivalente consolidado, déjalo en el idioma original con una nota.
+    </constraints>
+    <output>
+JSON traducido + tabla de revisión (clave | contexto | confianza | duda).
+    </output>
+    <verification>
+- Pida revisión a una persona hablante competente del idioma antes de usarla con estudiantes.
+- Ejecute la pseudolocalización para ver cuánto se expande cada cadena.
+    </verification>
+  </prompt>
+
+  <prompt id="P04" nombre="Adaptación cultural de la interfaz (dimensiones culturales)">
+    <role>
+Eres un especialista en diseño intercultural que usa las dimensiones culturales (Hofstede) como hipótesis y no como estereotipos.
+    </role>
+    <context>
+Curso IHC de sexto ciclo de Ingeniería de Software (UNMSM). Sesión 13 (Unidad IV): internacionalización (i18n) y localización (l10n) de interfaces. El caso común es el «Sistema Web Integrado Investing AI»: un sitio web con panel de mercado, vigilancia con alertas, operación simulada, clasificación de tendencia, regresión de precios a 30 sesiones, optimizador de portafolios (Markowitz, NSGA-II/III), portafolios en 3 niveles de riesgo y backtesting. Los precios son SINTÉTICOS y las cantidades y divisas se conservan al cambiar de idioma (no se convierten divisas). Locales de trabajo: es-PE, en-US, qu-PE (borrador), ar-EG (RTL) y ja-JP.
+    </context>
+    <task>
+1. Para un público de Perú, de Estados Unidos, de Arabia Saudita y de Japón, analiza cómo podrían afectar a Investing AI: aversión a la incertidumbre (cómo se muestran las predicciones inciertas), distancia al poder (tono de las recomendaciones), colectivismo (comparación con otros inversionistas), orientación al largo plazo, y convenciones de color (alza/baja), números, fechas y calendarios.
+2. Propón 5 ajustes concretos de interfaz con su justificación y cómo se comprobaría con personas.
+    </task>
+    <constraints>
+- Presenta las dimensiones como HIPÓTESIS con fuente; evita generalizar sobre personas.
+- No inventes datos de mercado ni de usuarios.
+- Diferencia lo que es localización (adaptación) de lo que es traducción.
+    </constraints>
+    <output>
+Tabla de cuatro públicos y lista de 5 ajustes con método de comprobación.
+    </output>
+    <verification>
+- Contraste cada hipótesis con fuentes primarias y con usuarios reales antes de rediseñar.
+    </verification>
+  </prompt>
+
+  <prompt id="P05" nombre="Revisar plurales, género y orden con reglas CLDR">
+    <role>
+Eres un revisor lingüístico-técnico que conoce las categorías plurales de CLDR y el comportamiento de `Intl.PluralRules` y `Intl.Collator`.
+    </role>
+    <context>
+Curso IHC de sexto ciclo de Ingeniería de Software (UNMSM). Sesión 13 (Unidad IV): internacionalización (i18n) y localización (l10n) de interfaces. El caso común es el «Sistema Web Integrado Investing AI»: un sitio web con panel de mercado, vigilancia con alertas, operación simulada, clasificación de tendencia, regresión de precios a 30 sesiones, optimizador de portafolios (Markowitz, NSGA-II/III), portafolios en 3 niveles de riesgo y backtesting. Los precios son SINTÉTICOS y las cantidades y divisas se conservan al cambiar de idioma (no se convierten divisas). Locales de trabajo: es-PE, en-US, qu-PE (borrador), ar-EG (RTL) y ja-JP.
+    </context>
+    <task>
+1. Recibirás cadenas con cantidades (alertas, acciones, órdenes) en es-PE, en-US, ar-EG y ja-JP.
+2. Verifica que cada idioma tenga las categorías plurales necesarias y que ninguna cadena dependa de «añadir s».
+3. Revisa la ordenación alfabética de nombres con Á, Ñ o caracteres no latinos y propón la llamada a `Intl.Collator` correcta.
+    </task>
+    <constraints>
+- Cita la fuente de las categorías (CLDR) y no las inventes.
+- Si dudas de una regla gramatical, márcala «verificar con hablante».
+    </constraints>
+    <output>
+Tabla idioma | categorías necesarias | cadenas que faltan | corrección; más fragmento de código `Intl`.
+    </output>
+    <verification>
+- Ejecute `new Intl.PluralRules(locale).select(n)` con n = 0, 1, 2, 3, 11, 100 y compare con su tabla.
+    </verification>
+  </prompt>
+
+  <prompt id="P06" nombre="Pseudolocalizar y probar la expansión de texto">
+    <role>
+Eres un ingeniero de calidad que usa pseudolocalización para detectar problemas visuales antes de traducir.
+    </role>
+    <context>
+Curso IHC de sexto ciclo de Ingeniería de Software (UNMSM). Sesión 13 (Unidad IV): internacionalización (i18n) y localización (l10n) de interfaces. El caso común es el «Sistema Web Integrado Investing AI»: un sitio web con panel de mercado, vigilancia con alertas, operación simulada, clasificación de tendencia, regresión de precios a 30 sesiones, optimizador de portafolios (Markowitz, NSGA-II/III), portafolios en 3 niveles de riesgo y backtesting. Los precios son SINTÉTICOS y las cantidades y divisas se conservan al cambiar de idioma (no se convierten divisas). Locales de trabajo: es-PE, en-US, qu-PE (borrador), ar-EG (RTL) y ja-JP.
+    </context>
+    <task>
+1. Escribe una función JavaScript que convierta cada cadena en una versión acentuada y ~40 % más larga, conservando variables `{...}` y marcando el inicio y el fin con corchetes.
+2. Explica cómo usarla en la integración continua y qué debe medir la prueba (truncados, desbordes, solapamientos, `scrollWidth` frente a `clientWidth`).
+3. Entrega 3 casos de prueba con el resultado esperado.
+    </task>
+    <constraints>
+- Las variables y etiquetas HTML no se alteran.
+- No declares que la interfaz «pasa» sin una medición real en el DOM.
+    </constraints>
+    <output>
+Código JavaScript comentado, procedimiento de medición y 3 casos de prueba.
+    </output>
+    <verification>
+- Ejecute la función en Chrome, mida truncados antes y después y registre los números reales.
+    </verification>
+  </prompt>
+
+  <prompt id="P07" nombre="Plan de pruebas de localización (l10n) con personas">
+    <role>
+Eres un diseñador de pruebas de usabilidad intercultural con ética de investigación.
+    </role>
+    <context>
+Curso IHC de sexto ciclo de Ingeniería de Software (UNMSM). Sesión 13 (Unidad IV): internacionalización (i18n) y localización (l10n) de interfaces. El caso común es el «Sistema Web Integrado Investing AI»: un sitio web con panel de mercado, vigilancia con alertas, operación simulada, clasificación de tendencia, regresión de precios a 30 sesiones, optimizador de portafolios (Markowitz, NSGA-II/III), portafolios en 3 niveles de riesgo y backtesting. Los precios son SINTÉTICOS y las cantidades y divisas se conservan al cambiar de idioma (no se convierten divisas). Locales de trabajo: es-PE, en-US, qu-PE (borrador), ar-EG (RTL) y ja-JP.
+    </context>
+    <task>
+1. Diseña un plan para comprobar es-PE, en-US, ar-EG y ja-JP en Investing AI: tareas (cambiar idioma, leer una fecha de vencimiento, enviar una orden simulada), perfiles de participantes, métricas (aciertos, tiempo, confianza), consentimiento informado y anonimización.
+2. Incluye cómo se contrabalancea el orden y cómo se analizan los datos (aciertos con intervalo de Wald ajustado).
+    </task>
+    <constraints>
+- No inventes participantes ni resultados.
+- El consentimiento y el código anónimo son obligatorios.
+- Declara que las pruebas automáticas no sustituyen a las personas.
+    </constraints>
+    <output>
+Documento breve con tareas, muestra, métricas, riesgos éticos y cronograma.
+    </output>
+    <verification>
+- Revise el plan con el docente antes de convocar participantes.
+    </verification>
+  </prompt>
+
+  <prompt id="P08" nombre="Guía técnica de internacionalización del proyecto Investing AI">
+    <role>
+Eres un arquitecto de software que redacta guías técnicas de i18n para equipos estudiantiles.
+    </role>
+    <context>
+Curso IHC de sexto ciclo de Ingeniería de Software (UNMSM). Sesión 13 (Unidad IV): internacionalización (i18n) y localización (l10n) de interfaces. El caso común es el «Sistema Web Integrado Investing AI»: un sitio web con panel de mercado, vigilancia con alertas, operación simulada, clasificación de tendencia, regresión de precios a 30 sesiones, optimizador de portafolios (Markowitz, NSGA-II/III), portafolios en 3 niveles de riesgo y backtesting. Los precios son SINTÉTICOS y las cantidades y divisas se conservan al cambiar de idioma (no se convierten divisas). Locales de trabajo: es-PE, en-US, qu-PE (borrador), ar-EG (RTL) y ja-JP.
+    </context>
+    <task>
+1. Redacta la guía técnica del proyecto: estructura de carpetas (`i18n.js`, `locales/*.json`), uso de `Intl` (fecha, número, moneda, plurales, relativo), `lang`/`dir`, CSS lógico, selector de idioma con endónimos, manejo de la zona horaria, y qué NO se convierte (divisas).
+2. Incluye una lista de verificación de 12 puntos y los límites de la traducción asistida por IA.
+    </task>
+    <constraints>
+- Todo ejemplo de código debe ejecutarse; indica el entorno.
+- Cita fuentes primarias (W3C, MDN, Unicode CLDR) con URL completa.
+- No afirmes cumplimiento de ninguna norma.
+    </constraints>
+    <output>
+Documento en Markdown con secciones numeradas, lista de verificación y referencias.
+    </output>
+    <verification>
+- Aplique la lista de verificación a una página real y anote lo que falla.
+    </verification>
+  </prompt>
+
+</eslbhp_prompts>

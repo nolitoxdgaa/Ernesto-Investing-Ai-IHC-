@@ -1,0 +1,127 @@
+@startuml
+' =============================================
+' PROTOCOLO v2 (BLANCO, IMPRIMIBLE) DE DIAGRAMA DE COMPONENTES - BATD
+' =============================================
+skinparam style strictuml
+skinparam RoundCorner 15
+skinparam Padding 10
+skinparam defaultFontName "Arial"
+skinparam backgroundColor white
+skinparam Shadowing false
+skinparam dpi 300
+skinparam ArrowThickness 1.5
+ 
+' --- NEGRITAS GLOBALES ---
+skinparam defaultFontStyle bold
+skinparam noteFontStyle bold
+ 
+' --- FLECHAS ---
+skinparam ArrowColor darkgreen
+skinparam ArrowFontStyle bold
+ 
+' --- COMPONENTE ---
+skinparam component {
+    BackgroundColor #FFFFFF
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 14
+    BorderThickness 2
+}
+ 
+' --- INTERFAZ ---
+skinparam interface {
+    BackgroundColor #FFFFFF
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 12
+}
+ 
+' --- PAQUETE ---
+skinparam package {
+    BackgroundColor #FFFFFF
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 14
+    BorderThickness 2
+}
+ 
+' --- NODO ---
+skinparam node {
+    BackgroundColor #FFFFFF
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 14
+}
+ 
+' --- DATABASE ---
+skinparam database {
+    BackgroundColor #FFFFFF
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 14
+}
+ 
+' --- CLOUD ---
+skinparam cloud {
+    BackgroundColor #FFFFFF
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 14
+}
+ 
+' --- RECTANGLE (agrupador auxiliar) ---
+skinparam rectangle {
+    BackgroundColor #FFFFFF
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 14
+    RoundCorner 10
+}
+ 
+' --- NOTAS ---
+skinparam noteBackgroundColor #FFFFFF
+skinparam noteBorderColor black
+skinparam noteFontColor #000000
+ 
+' ===========================================
+' AQUÍ COMIENZA EL CONTENIDO DEL DIAGRAMA
+' ===========================================
+' (componentes, interfaces, paquetes, relaciones, notas...)
+
+title Diagrama de Componentes de las Zonas de Internacionalización de Investing AI
+left to right direction
+package "Zona núcleo (sin idioma)" {
+  [Pronóstico y recomendación] as NUC1
+  [Optimizador de portafolios] as NUC2
+}
+package "Zona de recursos" {
+  [Catálogo de cadenas] as REC1
+  [Formateadores Intl] as REC2
+}
+package "Zona de adaptación cultural" {
+  [Selector de idioma y zona] as ADA1
+  [Pseudolocalizador] as ADA2
+}
+[Interfaz web Investing AI] as UI
+database "Datos sintéticos JSON" as DB
+UI --> ADA1 : elige idioma y zona
+UI --> REC1 : pide texto por clave
+UI --> REC2 : pide fecha, dinero y %
+UI --> NUC1 : pide señales
+NUC1 --> DB : lee precios
+NUC2 --> DB : lee covarianzas
+ADA1 --> REC1 : fija el locale
+ADA2 ..> REC1 : expande textos (+40 %)
+NUC1 ..> NUC2 : usa retornos
+note bottom of REC2
+  Cantidad y divisa se conservan:
+  cambiar de idioma no convierte divisas
+end note
+@enduml

@@ -1,0 +1,6 @@
+﻿hora,texto,chars,puntos_codigo,grafemas,bytes_utf8,bytes_utf16,mojibake
+12:31:40,Acción AAPL: cotización 189 50 US$ — señ,52,52,52,59,104,AcciÃ³n AAPL: cotizaciÃ³n 189 50 US$ â€”
+12:31:40,Ñandú Minerals · S/ 1 234 56 · Ábaco Cap,53,53,53,61,106,Ã‘andÃº Minerals Â· S/ 1 234 56 Â· Ã�bac
+12:31:40,買い / 売り — 東京証券取引所 ¥1 234,24,24,24,49,48,雋ｷ縺� / 螢ｲ繧� 窶� 譚ｱ莠ｬ險ｼ蛻ｸ蜿門ｼ墓園 ﾂ･1 234
+12:31:40,شراء / بيع — تداول السعودية ‏١٢٣٫٤٥ ر.س,39,39,39,71,78,Ø´Ø±Ø§Ø¡ / Ø¨ÙŠØ¹ â€” ØªØ¯Ø§ÙˆÙ„ Ø§Ù„Ø³Ø
+12:31:40,Portfólio: ação PETR4 — 12 3 % 👩🏽‍💼📈,40,36,33,55,80,PortfÃ³lio: aÃ§Ã£o PETR4 â€” 12 3 % ðŸ‘©

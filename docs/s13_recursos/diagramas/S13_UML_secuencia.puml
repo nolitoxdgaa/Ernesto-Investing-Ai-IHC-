@@ -1,0 +1,90 @@
+@startuml
+' =============================================
+' PROTOCOLO v2 (BLANCO, IMPRIMIBLE) DE DIAGRAMA DE SECUENCIA - BATD
+' =============================================
+skinparam actorStyle awesome
+skinparam style strictuml
+skinparam RoundCorner 15
+skinparam BoxPadding 15
+skinparam ParticipantPadding 20
+skinparam defaultFontName "Arial"
+skinparam backgroundColor white
+skinparam Shadowing false
+skinparam dpi 300
+skinparam ArrowThickness 1.5
+
+' --- NEGRITAS GLOBALES ---
+skinparam defaultFontStyle bold
+skinparam noteFontStyle bold
+skinparam sequenceGroupHeaderFontStyle bold
+
+' --- SECUENCIA Y FLECHAS ---
+skinparam sequence {
+    ArrowColor darkgreen
+    LifeLineBorderColor black
+    LifeLineBorderThickness 2.5
+    LifeLineBackgroundColor #FFFFFF
+    GroupBorderColor black
+    GroupBodyBackgroundColor #FFFFFF
+    GroupHeaderFontColor black
+    GroupBackgroundColor #FFFFFF
+}
+
+' --- PARTICIPANTES ---
+skinparam participant {
+    BackgroundColor #FFFFFF
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 14
+}
+
+' --- ACTOR ---
+skinparam actor {
+    BackgroundColor #FFFFFF
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 14
+}
+
+' --- DATABASE ---
+skinparam database {
+    BackgroundColor #FFFFFF
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 14
+}
+
+' --- NOTAS ---
+skinparam noteBackgroundColor #FFFFFF
+skinparam noteBorderColor black
+skinparam noteFontColor #000000
+
+' ===========================================
+' AQUÍ COMIENZA EL CONTENIDO DEL DIAGRAMA
+' ===========================================
+' (actores, participantes, boundary, control, database, mensajes, grupos, notas...)
+
+title Diagrama de Secuencia del Cambio de Idioma y Formato en Investing AI
+autonumber
+actor "Estudiante" as EST
+boundary "Interfaz web" as UI
+control "Gestor de idioma" as GI
+database "Catálogo de cadenas" as CAT
+participant "Formateador Intl" as FMT
+EST -> UI : elige «ar-EG» y zona «Asia/Riyadh»
+UI -> GI : fijar(locale, zona)
+GI -> GI : determinar dirección (rtl)
+GI -> UI : lang y dir actualizados
+UI -> CAT : texto(clave, variables)
+alt la clave existe en el locale
+  CAT --> UI : cadena traducida
+else falta la clave
+  CAT --> UI : cadena de es-PE (respaldo)
+end
+UI -> FMT : dinero(125430,5 USD) y fecha(instante UTC)
+FMT --> UI : texto con símbolos y dígitos del locale
+UI --> EST : portal espejado con formatos locales
+@enduml

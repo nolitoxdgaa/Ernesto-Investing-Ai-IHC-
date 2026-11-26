@@ -3,20 +3,24 @@
 <title>Dashboard · Ernesto Investing AI</title><link rel="stylesheet" href="css/styles.css">
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script></head>
 <body data-page="dashboard"><main>
-<h1>Dashboard de mercado</h1>
+<h1 data-i18n="dash_title">Dashboard de mercado</h1>
 <div class="grid" id="kpis" aria-live="polite"></div>
-<h2>Velas del activo (últimas 120 sesiones sintéticas)</h2>
-<div class="row"><div><label for="sel">Activo</label><select id="sel"></select></div><div><label for="grp">Filtrar tabla por grupo</label><select id="grp"><option value="">Todos</option></select></div></div>
+<h2 data-i18n="candles_title">Velas del activo (últimas 120 sesiones sintéticas)</h2>
+<div class="row"><div><label for="sel" data-i18n="asset_label">Activo</label><select id="sel"></select></div><div><label for="grp" data-i18n="filter_group">Filtrar tabla por grupo</label><select id="grp"><option value="" data-i18n="all_groups">Todos</option></select></div></div>
 <div id="chart" class="chart" role="img" aria-label="Gráfico de velas del activo seleccionado"></div>
-<h2>Universo de 26 activos</h2>
-<div class="tw"><table><caption class="mut" style="text-align:left;padding:.4rem">Variaciones y riesgo (datos sintéticos)</caption><thead><tr><th scope="col">Ticker</th><th scope="col" class="l">Grupo</th><th scope="col">Último</th><th scope="col">1 d</th><th scope="col">5 d</th><th scope="col">1 m</th><th scope="col">3 m</th><th scope="col">Vol. anual</th><th scope="col">Beta</th></tr></thead><tbody id="tb"></tbody></table></div>
-<script src="js/common.js"></script>
+<h2 data-i18n="universe_title">Universo de 26 activos</h2>
+<div class="tw"><table><caption class="mut" style="text-align:start;padding:.4rem" data-i18n="table_caption">Variaciones y riesgo (datos sintéticos)</caption><thead><tr><th scope="col" data-i18n="col_ticker">Ticker</th><th scope="col" class="l" data-i18n="col_group">Grupo</th><th scope="col" data-i18n="col_last">Último</th><th scope="col">1 d</th><th scope="col">5 d</th><th scope="col">1 m</th><th scope="col">3 m</th><th scope="col" data-i18n="col_vol">Vol. anual</th><th scope="col" data-i18n="col_beta">Beta</th></tr></thead><tbody id="tb"></tbody></table></div>
+<script src="js/common.js?v=s13_3_3"></script>
 <script>
 let D,O,ch;
+function renderKpis(){ $("#kpis").innerHTML=["SPY","QQQ","EPU"].map(sym=>{const d=D.find(x=>x.ticker===sym);return `<div class="card kpi"><div class="mut">${sym} · ${d.nombre}</div><div class="v">${fmt.usd(d.ultimo)}</div><div class="${fmt.cls(d.var_1d_pct)}">${fmt.pct(d.var_1d_pct)} ${window.t('today')}</div></div>`}).join(""); }
 window.init=async()=>{ D=await loadJSON("10_dashboard_mercado.json"); O=await loadJSON("03_ohlcv_sintetico_120d.json");
- $("#kpis").innerHTML=["SPY","QQQ","EPU"].map(t=>{const d=D.find(x=>x.ticker===t);return `<div class="card kpi"><div class="mut">${t} · ${d.nombre}</div><div class="v">${fmt.usd(d.ultimo)}</div><div class="${fmt.cls(d.var_1d_pct)}">${fmt.pct(d.var_1d_pct)} hoy</div></div>`}).join("");
+ renderKpis();
  $("#sel").innerHTML=D.map(d=>`<option>${d.ticker}</option>`).join(""); const gs=[...new Set(D.map(d=>d.grupo))]; $("#grp").insertAdjacentHTML("beforeend",gs.map(g=>`<option>${g}</option>`).join(""));
- $("#sel").onchange=draw; $("#grp").onchange=table; table(); draw(); window.addEventListener("resize",()=>ch&&ch.resize()); window.onTheme=draw; };
+ $("#sel").onchange=draw; $("#grp").onchange=table; table(); draw(); window.addEventListener("resize",()=>ch&&ch.resize()); window.onTheme=draw;
+ window.onLocaleChange=()=>{ renderKpis(); table(); draw(); };
+ window.onTZChange=()=>{ draw(); };
+};
 function table(){ const g=$("#grp").value; $("#tb").innerHTML=D.filter(d=>!g||d.grupo===g).map(d=>`<tr><th scope="row">${d.ticker}</th><td class="l">${d.grupo}</td><td>${fmt.n(d.ultimo)}</td>${["var_1d_pct","var_5d_pct","var_1m_pct","var_3m_pct"].map(k=>`<td class="${fmt.cls(d[k])}">${fmt.pct(d[k])}</td>`).join("")}<td>${d.volatilidad_anual_pct} %</td><td>${d.beta_vs_SPY}</td></tr>`).join(""); }
 function draw(){ const t=$("#sel").value,s=O.series[t]; const el=$("#chart"); if(!window.echarts){el.textContent="No se pudo cargar ECharts (se requiere conexión).";return}
  if(ch)ch.dispose(); ch=echarts.init(el); const dark=document.documentElement.getAttribute("data-theme")==="dark"||(!document.documentElement.getAttribute("data-theme")&&matchMedia("(prefers-color-scheme:dark)").matches); const tc=dark?"#e9eff5":"#14202e";

@@ -1,0 +1,61 @@
+@startuml
+skinparam style strictuml
+skinparam RoundCorner 15
+skinparam defaultFontName "Arial"
+skinparam backgroundColor white
+skinparam Shadowing false
+skinparam dpi 300
+skinparam ArrowThickness 1.5
+skinparam defaultFontStyle bold
+skinparam noteFontStyle bold
+skinparam ArrowColor darkgreen
+skinparam actor {
+    BackgroundColor #FFFFFF
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 14
+}
+skinparam usecase {
+    BackgroundColor #FFFFFF
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 12
+}
+skinparam rectangle {
+    BackgroundColor #FFFFFF
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 14
+    RoundCorner 10
+}
+skinparam noteBackgroundColor #FFFFFF
+skinparam noteBorderColor black
+skinparam noteFontColor #000000
+
+title Diagrama de Casos de Uso de Investing AI Internacionalizado
+left to right direction
+actor "Estudiante" as EST
+actor "Docente" as DOC
+rectangle "Investing AI internacionalizado" {
+  usecase "Cambiar idioma" as CU1
+  usecase "Elegir zona horaria" as CU2
+  usecase "Ver cotizaciones localizadas" as CU3
+  usecase "Enviar orden simulada" as CU4
+  usecase "Auditar el DOM" as CU5
+  usecase "Exportar CSV" as CU6
+  usecase "Pseudolocalizar textos" as CU7
+}
+EST --> CU1
+EST --> CU3
+EST --> CU4
+EST --> CU5
+DOC --> CU5
+DOC --> CU6
+CU1 ..> CU2 : <<include>>
+CU3 ..> CU1 : <<include>>
+CU6 ..> CU5 : <<include>>
+CU7 ..> CU1 : <<extend>>
+@enduml

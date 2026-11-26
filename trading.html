@@ -2,12 +2,12 @@
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Trading simulado · Ernesto Investing AI</title><link rel="stylesheet" href="css/styles.css"></head>
 <body data-page="trading"><main>
-<h1>Trading simulado</h1>
-<p class="mut">Órdenes a mercado al último precio sintético. El efectivo y las posiciones se guardan en este navegador.</p>
-<div class="grid"><div class="card"><h2 style="margin-top:0">Orden</h2><form id="f" novalidate><label for="t">Activo</label><select id="t"></select><label for="s">Lado</label><select id="s"><option value="C">Comprar</option><option value="V">Vender</option></select><label for="q">Cantidad</label><input id="q" type="number" min="1" step="1" value="10" aria-describedby="msg"><p id="msg" role="status" class="mut"></p><button class="primary" type="submit">Enviar orden</button> <button type="button" id="rs">Reiniciar demo</button></form></div>
-<div class="card kpi"><div class="mut">Efectivo</div><div class="v" id="cash"></div><div class="mut" style="margin-top:.6rem">Valor del portafolio</div><div class="v" id="nav"></div></div></div>
-<h2>Posiciones</h2><div class="tw"><table><thead><tr><th scope="col">Ticker</th><th scope="col">Cant.</th><th scope="col">Costo prom.</th><th scope="col">Último</th><th scope="col">P&amp;L</th></tr></thead><tbody id="tb"></tbody></table></div>
-<script src="js/common.js"></script>
+<h1 data-i18n="trading_title">Trading simulado</h1>
+<p class="mut" data-i18n="disclaimer">Órdenes a mercado al último precio sintético. El efectivo y las posiciones se guardan en este navegador.</p>
+<div class="grid"><div class="card"><h2 style="margin-top:0" data-i18n="new_order">Orden</h2><form id="f" novalidate><label for="t" data-i18n="asset_label">Activo</label><select id="t"></select><label for="s" data-i18n="order_type">Lado</label><select id="s"><option value="C" data-i18n="btn_buy">Comprar</option><option value="V" data-i18n="btn_sell">Vender</option></select><label for="q" data-i18n="qty">Cantidad</label><input id="q" type="number" min="1" step="1" value="10" aria-describedby="msg"><p id="msg" role="status" class="mut"></p><button class="primary" type="submit" data-i18n="place_order">Enviar orden</button> <button type="button" id="rs">Reiniciar demo</button></form></div>
+<div class="card kpi"><div class="mut" data-i18n="available_cash">Efectivo</div><div class="v" id="cash"></div><div class="mut" style="margin-top:.6rem" data-i18n="portfolio">Valor del portafolio</div><div class="v" id="nav"></div></div></div>
+<h2 data-i18n="open_positions">Posiciones</h2><div class="tw"><table><thead><tr><th scope="col" data-i18n="col_ticker">Ticker</th><th scope="col" data-i18n="qty">Cant.</th><th scope="col" data-i18n="cost">Costo prom.</th><th scope="col" data-i18n="col_last">Último</th><th scope="col">P&amp;L</th></tr></thead><tbody id="tb"></tbody></table></div>
+<script src="js/common.js?v=s13_3_3"></script>
 <script>
 let D,S;
 window.init=async()=>{ D=await loadJSON("10_dashboard_mercado.json"); const w=await loadJSON("11_watchlist_alertas_portafolio_demo.json"); S=store("eia_port")||JSON.parse(JSON.stringify(w.portafolio_demo));
@@ -19,4 +19,5 @@ function orden(){ const t=$("#t").value,q=parseInt($("#q").value,10),lado=$("#s"
  store("eia_port",S); render(`Orden ejecutada: ${lado==="C"?"compra":"venta"} de ${q} ${t} a ${fmt.usd(p)}.`); }
 function render(msg,err){ $("#msg").textContent=msg||""; $("#msg").className=err?"err":"mut"; let nav=S.efectivo;
  $("#tb").innerHTML=S.posiciones.map(x=>{const p=px(x.ticker),pl=(p-x.costo)*x.cantidad;nav+=p*x.cantidad;return `<tr><th scope="row">${x.ticker}</th><td>${x.cantidad}</td><td>${fmt.n(x.costo)}</td><td>${fmt.n(p)}</td><td class="${fmt.cls(pl)}">${fmt.usd(pl)}</td></tr>`}).join(""); $("#cash").textContent=fmt.usd(S.efectivo); $("#nav").textContent=fmt.usd(nav); }
+window.onLocaleChange=()=>render();
 </script></main></body></html>

@@ -1,0 +1,15 @@
+﻿hora,locale,version,pseudo,truncados,desbordes,fechas_fijas,dinero_fijo,lang_ok,dir_ok,expansion,caracteres
+06:27:06,es-PE,A,no,5,0,1,8,sí,sí,0,652
+06:27:07,en-US,A,no,4,0,1,8,no,sí,-6,611
+06:27:07,qu-PE,A,no,5,0,1,8,no,sí,-3,634
+06:27:07,ar-EG,A,no,4,0,1,8,no,no,-8,603
+06:27:08,ja-JP,A,no,5,0,1,8,no,sí,-27,476
+06:27:08,es-PE,B,no,0,0,0,0,sí,sí,0,925
+06:27:09,en-US,B,no,0,0,0,7,sí,sí,-10,832
+06:27:09,qu-PE,B,no,0,0,0,0,sí,sí,-3,896
+06:27:10,ar-EG,B,no,0,0,0,0,sí,sí,-10,832
+06:27:10,ja-JP,B,no,0,0,0,7,sí,sí,-38,578
+06:27:11,es-PE,A,sí,5,0,1,8,sí,sí,0,877
+06:27:11,en-US,A,sí,5,0,1,8,no,sí,-6,820
+06:27:11,es-PE,B,sí,0,0,0,0,sí,sí,0,1262
+06:27:12,en-US,B,sí,0,0,0,7,sí,sí,-10,1140

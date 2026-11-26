@@ -2,13 +2,19 @@
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Leaderboard · Ernesto Investing AI</title><link rel="stylesheet" href="css/styles.css"></head>
 <body data-page="leaderboard"><main>
-<h1>Leaderboard de la liga</h1>
-<p class="mut">Ranking de traders ficticios y el suyo (según su portafolio de la pestaña Trading, comparado con el valor inicial de la demo).</p>
-<div class="tw"><table><thead><tr><th scope="col">#</th><th scope="col" class="l">Alias</th><th scope="col">Equipo</th><th scope="col">Retorno</th><th scope="col">Operaciones</th><th scope="col">Sharpe</th></tr></thead><tbody id="tb"></tbody></table></div>
-<script src="js/common.js"></script>
+<h1 data-i18n="leaderboard_title">Leaderboard de la liga</h1>
+<p class="mut" data-i18n="league_desc">Ranking de traders ficticios y el suyo (según su portafolio de la pestaña Trading, comparado con el valor inicial de la demo).</p>
+<div class="tw"><table><thead><tr><th scope="col" data-i18n="col_rank">#</th><th scope="col" class="l" data-i18n="col_alias">Alias</th><th scope="col" data-i18n="col_team">Equipo</th><th scope="col" data-i18n="col_return">Retorno</th><th scope="col" data-i18n="col_trades">Operaciones</th><th scope="col" data-i18n="col_sharpe">Sharpe</th></tr></thead><tbody id="tb"></tbody></table></div>
+<script src="js/common.js?v=s13_3_3"></script>
 <script>
-window.init=async()=>{ const L=await loadJSON("12_leaderboard_liga.json"), D=await loadJSON("10_dashboard_mercado.json"), w=await loadJSON("11_watchlist_alertas_portafolio_demo.json"); const S=store("eia_port")||w.portafolio_demo;
+let L,D,w,S;
+function render(){
  const px=t=>D.find(d=>d.ticker===t).ultimo; const base=w.portafolio_demo.efectivo+w.portafolio_demo.posiciones.reduce((a,p)=>a+p.cantidad*p.costo,0); const nav=S.efectivo+S.posiciones.reduce((a,p)=>a+p.cantidad*px(p.ticker),0);
  const yo={alias:"Usted",equipo:"—",retorno_liga_pct:(nav/base-1)*100,operaciones:"—",sharpe:"—",yo:1}; const all=[...L,yo].sort((a,b)=>b.retorno_liga_pct-a.retorno_liga_pct);
- $("#tb").innerHTML=all.map((x,i)=>`<tr ${x.yo?'style="background:var(--hl);font-weight:700"':''}><td>${i+1}</td><td class="l">${x.alias}</td><td>${x.equipo}</td><td class="${fmt.cls(x.retorno_liga_pct)}">${fmt.pct(x.retorno_liga_pct)}</td><td>${x.operaciones}</td><td>${x.sharpe}</td></tr>`).join(""); };
+ $("#tb").innerHTML=all.map((x,i)=>`<tr ${x.yo?'style="background:var(--hl);font-weight:700"':''}><td>${i+1}</td><td class="l">${x.alias}</td><td>${x.equipo}</td><td class="${fmt.cls(x.retorno_liga_pct)}">${fmt.pct(x.retorno_liga_pct)}</td><td>${x.operaciones}</td><td>${x.sharpe}</td></tr>`).join("");
+}
+window.init=async()=>{ L=await loadJSON("12_leaderboard_liga.json"); D=await loadJSON("10_dashboard_mercado.json"); w=await loadJSON("11_watchlist_alertas_portafolio_demo.json"); S=store("eia_port")||w.portafolio_demo;
+ render();
+ window.onLocaleChange=render;
+};
 </script></main></body></html>

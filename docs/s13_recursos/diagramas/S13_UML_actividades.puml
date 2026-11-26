@@ -1,0 +1,55 @@
+@startuml
+skinparam style strictuml
+skinparam RoundCorner 15
+skinparam defaultFontName "Arial"
+skinparam backgroundColor white
+skinparam Shadowing false
+skinparam dpi 300
+skinparam ArrowThickness 1.5
+skinparam defaultFontStyle bold
+skinparam noteFontStyle bold
+skinparam ArrowColor darkgreen
+skinparam activity {
+    BackgroundColor #FFFFFF
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 13
+}
+skinparam activityDiamond {
+    BackgroundColor #FFFFFF
+    BorderColor black
+    FontColor black
+    FontStyle bold
+}
+skinparam noteBackgroundColor #FFFFFF
+skinparam noteBorderColor black
+skinparam noteFontColor #000000
+skinparam partition {
+    BackgroundColor #FFFFFF
+    BorderColor black
+    FontColor black
+    FontStyle bold
+}
+
+title Diagrama de Actividades del Flujo de una Cadena Localizada en Investing AI
+start
+:Escribir cadena fuente en español;
+:Extraer a archivo de recursos (clave);
+:Traducir con contexto y glosario;
+if (¿tiene plural o variables?) then (sí)
+  :Escribir formas plurales por categoría;
+else (no)
+  :Mantener una sola forma;
+endif
+:Formatear fecha, dinero y porcentaje con Intl;
+:Pseudolocalizar para probar expansión;
+:Auditar truncados y desbordes;
+if (¿hay hallazgos?) then (sí)
+  :Corregir ancho, dirección o recurso;
+  :Repetir la auditoría;
+else (no)
+  :Registrar la cadena como verificada;
+endif
+stop
+@enduml

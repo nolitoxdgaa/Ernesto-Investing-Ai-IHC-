@@ -1,0 +1,139 @@
+@startuml
+' =============================================
+' PROTOCOLO v2 (BLANCO, IMPRIMIBLE) DE DIAGRAMA DE CLASES - BATD
+' =============================================
+skinparam style strictuml
+skinparam RoundCorner 15
+skinparam Padding 10
+skinparam defaultFontName "Arial"
+skinparam backgroundColor white
+skinparam Shadowing false
+skinparam dpi 300
+skinparam ArrowThickness 1.5
+
+' --- NEGRITAS GLOBALES ---
+skinparam defaultFontStyle bold
+skinparam noteFontStyle bold
+
+' --- FLECHAS ---
+skinparam ArrowColor darkgreen
+skinparam ArrowFontStyle bold
+skinparam ArrowFontColor black
+
+' --- CLASE ---
+skinparam class {
+    BackgroundColor #FFFFFF
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 14
+    AttributeFontColor black
+    AttributeFontSize 12
+    AttributeFontStyle plain
+    StereotypeFontColor #333333
+    StereotypeFontSize 12
+    StereotypeFontStyle italic
+    HeaderBackgroundColor #FFFFFF
+    BorderThickness 2
+}
+
+' --- INTERFAZ ---
+skinparam interface {
+    BackgroundColor #FFFFFF
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 14
+}
+
+' --- CLASE ABSTRACTA ---
+skinparam abstract {
+    BackgroundColor #FFFFFF
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 14
+    HeaderBackgroundColor #FFFFFF
+}
+
+' --- ENUMERACIÓN ---
+skinparam enum {
+    BackgroundColor #FFFFFF
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 14
+    AttributeFontColor black
+    AttributeFontSize 12
+}
+
+' --- PAQUETE ---
+skinparam package {
+    BackgroundColor #FFFFFF
+    BorderColor black
+    FontColor black
+    FontStyle bold
+    FontSize 14
+    BorderThickness 2
+}
+
+' --- NOTAS ---
+skinparam noteBackgroundColor #FFFFFF
+skinparam noteBorderColor black
+skinparam noteFontColor #000000
+
+' --- LEYENDA ---
+skinparam legendBackgroundColor #FFFFFF
+skinparam legendBorderColor black
+skinparam legendFontColor black
+skinparam legendFontSize 12
+
+' ===========================================
+' AQUÍ COMIENZA EL CONTENIDO DEL DIAGRAMA
+' ===========================================
+' (clases, interfaces, abstractas, enums, relaciones, notas...)
+
+title Diagrama de Clases del Sistema de Internacionalización de Investing AI
+class Locale {
+  - etiqueta : String
+  - direccion : String
+  + esRtl() : Boolean
+}
+class Catalogo {
+  - cadenas : Map
+  + texto(clave, variables) : String
+}
+class RecursoTexto {
+  - clave : String
+  - plural : Boolean
+  + categoria(n) : String
+}
+class Formateador {
+  + dinero(monto, divisa) : String
+  + fecha(instante, zona) : String
+  + porcentaje(valor) : String
+}
+class Pseudolocalizador {
+  + expandir(texto) : String
+}
+class AuditoriaI18n {
+  - truncados : Integer
+  - desbordes : Integer
+  + medir() : Hallazgo
+}
+class Activo {
+  - simbolo : String
+  - precio : Decimal
+}
+class Portafolio {
+  - valor : Decimal
+  - divisa : String
+}
+Locale "1" --> "1" Catalogo : usa
+Catalogo "1" *-- "0..*" RecursoTexto : contiene
+Locale "1" --> "1" Formateador : configura
+Formateador ..> Activo : formatea precio
+Portafolio "1" o-- "0..*" Activo : agrupa
+Pseudolocalizador ..> Catalogo : transforma
+AuditoriaI18n ..> Locale : mide
+@enduml
