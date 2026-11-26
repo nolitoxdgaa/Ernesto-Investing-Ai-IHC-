@@ -95,6 +95,7 @@
     });
 
     renderAll();
+    window.onLocaleChange = () => renderAll();
   };
 
   function applyFamilyFilter() {

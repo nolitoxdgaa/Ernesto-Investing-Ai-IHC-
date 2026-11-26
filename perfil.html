@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Perfil de inversionista · Ernesto Investing AI</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="perfil">
+<main>
+  <h1 data-i18n="perfil_title">Perfil de inversionista</h1>
+  <p class="lead" data-i18n="perfil_desc">Gestión de cuenta simulada, tolerancia al riesgo y estadísticas de desempeño.</p>
+
+  <div class="grid" style="margin-bottom:1.5rem">
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1rem">
+        <div style="width:3.5rem;height:3.5rem;border-radius:50%;background:var(--ac);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:700">
+          👤
+        </div>
+        <div>
+          <h2 style="margin:0;font-size:1.2rem" data-i18n="user_name">Usuario Demo IHC</h2>
+          <span class="mut" data-i18n="user_id">Código: G3-EST-2026</span>
+        </div>
+      </div>
+      <p><span data-i18n="virtual_capital">Capital virtual disponible</span>: <strong id="cap-disp" class="v" style="font-size:1.3rem"></strong></p>
+      <p class="tag" style="background:var(--hl)">Simulación Educativa · Sin Riesgo Real</p>
+    </div>
+
+    <div class="card">
+      <h2 style="margin-top:0" data-i18n="risk_tolerance">Tolerancia al riesgo</h2>
+      <form id="perfil-form">
+        <label for="prof-risk" data-i18n="risk">Perfil de riesgo</label>
+        <select id="prof-risk">
+          <option value="conservative" data-i18n="conservative">Conservador</option>
+          <option value="moderate" data-i18n="moderate">Moderado</option>
+          <option value="aggressive" data-i18n="aggressive">Agresivo</option>
+        </select>
+        <div style="margin-top:1rem">
+          <button class="primary" type="submit" data-i18n="save_prefs">Guardar preferencias</button>
+          <span id="save-msg" class="mut" style="margin-inline-start:.5rem"></span>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <h2>Estadísticas de la cuenta</h2>
+  <div class="grid">
+    <div class="card kpi">
+      <div class="mut" data-i18n="total_trades">Operaciones totales</div>
+      <div class="v" id="stat-trades">24</div>
+    </div>
+    <div class="card kpi">
+      <div class="mut" data-i18n="win_rate">Tasa de aciertos simulada</div>
+      <div class="v up" id="stat-win">68.5 %</div>
+    </div>
+    <div class="card kpi">
+      <div class="mut" data-i18n="best_asset">Mejor activo en cartera</div>
+      <div class="v" id="stat-best">NVDA (+42.5 %)</div>
+    </div>
+    <div class="card kpi">
+      <div class="mut" data-i18n="col_sharpe">Ratio Sharpe</div>
+      <div class="v" id="stat-sharpe">1.84</div>
+    </div>
+  </div>
+</main>
+<script src="js/common.js?v=s13_3"></script>
+<script>
+window.init = async () => {
+  const w = await loadJSON("11_watchlist_alertas_portafolio_demo.json");
+  const S = store("eia_port") || w.portafolio_demo;
+  renderPerfil(S);
+  
+  const savedRisk = store("eia_user_risk") || "moderate";
+  $("#prof-risk").value = savedRisk;
+
+  $("#perfil-form").onsubmit = e => {
+    e.preventDefault();
+    store("eia_user_risk", $("#prof-risk").value);
+    $("#save-msg").textContent = "✓ Preferencias guardadas";
+    setTimeout(() => { $("#save-msg").textContent = ""; }, 3000);
+  };
+};
+
+function renderPerfil(S) {
+  const cap = S ? S.efectivo : 100000;
+  $("#cap-disp").textContent = fmt.usd(cap);
+}
+
+window.onLocaleChange = async () => {
+  const w = await loadJSON("11_watchlist_alertas_portafolio_demo.json");
+  const S = store("eia_port") || w.portafolio_demo;
+  renderPerfil(S);
+};
+</script>
+</body>
+</html>

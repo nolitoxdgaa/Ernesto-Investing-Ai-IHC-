@@ -22,6 +22,7 @@
 
     renderHeatmap();
     renderMetricsTable();
+    window.onLocaleChange = () => { renderHeatmap(); renderMetricsTable(); };
   };
 
   function renderHeatmap() {

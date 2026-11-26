@@ -47,6 +47,7 @@
     renderInterpretation();
     renderMetricsTable();
     renderRebalances();
+    window.onLocaleChange = () => { renderCharts(); renderInterpretation(); renderMetricsTable(); renderRebalances(); };
   };
 
   function renderCharts() {

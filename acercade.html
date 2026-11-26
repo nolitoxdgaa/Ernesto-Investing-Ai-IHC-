@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Acerca de · Ernesto Investing AI</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="acercade">
+<main>
+  <h1 data-i18n="acercade_title">Acerca de Ernesto Investing AI</h1>
+  <p class="lead" data-i18n="acercade_desc">Información del proyecto, arquitectura técnica, equipo y declaración ética.</p>
+
+  <div class="card" style="margin-bottom:1.5rem">
+    <h2 style="margin-top:0">Información Académica e Institucional</h2>
+    <p><strong>Curso:</strong> Interacción Hombre-Computador (IHC · Código 202W0606)</p>
+    <p><strong>Semestre:</strong> 2026-II · Unidad IV (Internacionalización, Accesibilidad y Evaluación)</p>
+    <p><strong>Docente:</strong> Prof. Mg. Ing. Ernesto D. Cancho-Rodríguez, MBA (GWU)</p>
+    <p><strong>Resultado de Aprendizaje:</strong> RA4 (CT10.2, CT13.2) — Propone mejoras en el diseño de interfaces hombre-computador considerando localización, internacionalización, metáforas y modelos conceptuales.</p>
+    <p class="tag" style="background:var(--hl)" data-i18n="version_info">Versión 2.0 Internacionalizada (Semana 13 · IHC 2026-II)</p>
+  </div>
+
+  <div class="grid" style="margin-bottom:1.5rem">
+    <div class="card">
+      <h2 style="margin-top:0">Arquitectura en 3 Zonas de i18n</h2>
+      <ul>
+        <li><strong>Zona 1 (Núcleo independiente):</strong> Lógica de pronóstico, matrices de covarianza, optimizador Markowitz y backtesting sin textos visibles fijos.</li>
+        <li><strong>Zona 2 (Recursos externalizados):</strong> Diccionarios JSON por locale BCP 47 (<code>es-PE</code>, <code>en-US</code>, <code>ar-EG</code>, <code>ja-JP</code>, <code>qu-PE</code>) y formateadores con API <code>Intl</code>.</li>
+        <li><strong>Zona 3 (Adaptación cultural):</strong> Selector de idioma por endónimos, dirección RTL automática, CSS lógico, selector de zonas horarias y pseudolocalización.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2 style="margin-top:0">Stack Tecnológico</h2>
+      <ul>
+        <li><strong>Frontend:</strong> HTML5 semántico, CSS3 lógico, Vanilla JavaScript modular.</li>
+        <li><strong>Visualización:</strong> Apache ECharts 5.5.1 + Micro-gráficos Sparkline SVG nativos.</li>
+        <li><strong>Internacionalización:</strong> API estándar ECMAScript <code>Intl</code> (NumberFormat, DateTimeFormat, PluralRules, Collator).</li>
+        <li><strong>Almacenamiento:</strong> 13 fuentes de datos JSON estáticos + <code>localStorage</code> para estado de sesión.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:1.5rem;border-inline-start:4px solid var(--ac)">
+    <h2 style="margin-top:0" data-i18n="ethics_title">Declaración de Veracidad y Ética (G.10 / L.12)</h2>
+    <p data-i18n="ethics_decl">Todos los precios, pronósticos y rentabilidades son estrictamente sintéticos con fines pedagógicos. No constituye asesoría financiera.</p>
+    <ul>
+      <li>Los precios y portafolios son <strong>sintéticos</strong>; solo volatilidad, beta y correlación se anclan a datos históricos reales.</li>
+      <li>Las cantidades y divisas se conservan sin conversión ficticia al alternar de idioma.</li>
+      <li>Las traducciones al árabe, japonés y quechua son borradores preliminares que requieren revisión de hablantes nativos competentes.</li>
+      <li>Se declara el uso de Inteligencia Artificial como asistente técnico, con verificación manual de código y trazabilidad íntegra.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0" data-i18n="team_title">Equipo de desarrollo</h2>
+    <p>Proyecto desarrollado por los estudiantes del Grupo de IHC, Semestre 2026-2.</p>
+    <p class="mut">Licencia de contenido educativo Creative Commons Attribution 4.0 International (CC BY 4.0).</p>
+  </div>
+</main>
+<script src="js/common.js?v=s13_3"></script>
+</body>
+</html>

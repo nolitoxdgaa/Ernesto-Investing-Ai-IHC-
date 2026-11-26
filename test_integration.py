@@ -22,6 +22,10 @@ PAGES = [
     ("optimizador.html", "optimizador"),
     ("portafolios.html", "portafolios"),
     ("backtesting.html", "backtesting"),
+    ("perfil.html", "perfil"),
+    ("configuracion.html", "configuracion"),
+    ("ayuda.html", "ayuda"),
+    ("acercade.html", "acercade"),
 ]
 
 DATA_FILES = [

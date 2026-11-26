@@ -59,6 +59,7 @@
     renderComposition();
     renderChart();
     renderAccessibleTable();
+    window.onLocaleChange = () => { renderComposition(); renderChart(); renderAccessibleTable(); };
   };
 
   function renderComposition() {

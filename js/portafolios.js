@@ -32,6 +32,7 @@
     });
 
     renderPortfolios();
+    window.onLocaleChange = () => renderPortfolios();
   };
 
   function renderPortfolios() {

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Centro de ayuda · Ernesto Investing AI</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="ayuda">
+<main>
+  <h1 data-i18n="ayuda_title">Centro de ayuda y tutoriales</h1>
+  <p class="lead" data-i18n="ayuda_desc">Guía de uso de módulos, preguntas frecuentes y glosario de términos financieros.</p>
+
+  <section class="card" style="margin-bottom:1.5rem">
+    <h2 style="margin-top:0">Guía rápida de los 9 módulos</h2>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(18rem,1fr))">
+      <div>
+        <h3>1. Dashboard</h3>
+        <p class="mut">Gráficos de velas (candlestick) con ECharts de 26 activos, variaciones porcentuales a 1d, 5d, 1m, 3m, beta y volatilidad anual.</p>
+      </div>
+      <div>
+        <h3>2. Watchlist y alertas</h3>
+        <p class="mut">Monitoreo personalizado con micro-gráficos sparkline SVG de 60 sesiones y alertas automáticas disparadas por umbrales.</p>
+      </div>
+      <div>
+        <h3>3. Trading simulado</h3>
+        <p class="mut">Ejecución de órdenes de compra/venta a precios de mercado, cálculo de costo promedio ponderado y valor neto de activos (NAV).</p>
+      </div>
+      <div>
+        <h3>4. Leaderboard</h3>
+        <p class="mut">Tabla de posiciones de traders ficticios de la liga, comparando retorno porcentual acumulado y ratio Sharpe.</p>
+      </div>
+      <div>
+        <h3>5. Clasificación</h3>
+        <p class="mut">Matriz de señales direccionales (SUBE/BAJA) para 26 activos con 18 modelos evaluados (Machine Learning y Deep Learning).</p>
+      </div>
+      <div>
+        <h3>6. Regresión 30 días</h3>
+        <p class="mut">Pronóstico continuo de cotizaciones a 30 sesiones futuras con abanico de incertidumbre y métricas RMSE, MAE y R².</p>
+      </div>
+      <div>
+        <h3>7. Optimizador</h3>
+        <p class="mut">Construcción de la frontera eficiente de Markowitz y optimización multiobjetivo con algoritmos evolutivos NSGA-II y NSGA-III.</p>
+      </div>
+      <div>
+        <h3>8. Portafolios</h3>
+        <p class="mut">Estructuración en 3 niveles de riesgo (conservador, moderado, agresivo) frente a benchmarks de mercado (SPY, QQQ, EPU y 1/N).</p>
+      </div>
+      <div>
+        <h3>9. Backtesting</h3>
+        <p class="mut">Simulación histórica de estrategias de inversión, curva de patrimonio acumulado, análisis de drawdown y ratios de riesgo.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" style="margin-bottom:1.5rem">
+    <h2 style="margin-top:0" data-i18n="faq_title">Preguntas frecuentes</h2>
+    <details>
+      <summary>¿Los datos y cotizaciones corresponden a dinero real?</summary>
+      <p class="mut">No. Todo el sistema opera con datos sintéticos basados en patrones estadísticos realistas con fines estrictamente académicos. No se transacciona dinero real ni se ofrece asesoría financiera.</p>
+    </details>
+    <details>
+      <summary>¿Por qué el cambio de idioma no convierte los dólares a soles o yenes?</summary>
+      <p class="mut">Por principio de veracidad e internacionalización financiera: cambiar el idioma de la interfaz adapta los formatos (separador decimal, orden de fecha, dirección de lectura), pero la divisa y el monto del activo se conservan exactamente iguales.</p>
+    </details>
+    <details>
+      <summary>¿Cómo funciona el soporte para árabe (RTL)?</summary>
+      <p class="mut">Al seleccionar العربية, el documento adopta <code>dir="rtl"</code>. Toda la estructura de navegación, tarjetas y columnas se espeja hacia la derecha respetando las propiedades lógicas de CSS y el algoritmo bidireccional (UBA) para números.</p>
+    </details>
+  </section>
+
+  <section class="card">
+    <h2 style="margin-top:0" data-i18n="glossary_title">Glosario IHC y Financiero</h2>
+    <div style="overflow:auto">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Término</th>
+            <th scope="col" class="l">Definición y relevancia</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">i18n</th><td class="l">Internacionalización: diseñar el código de modo que pueda adaptarse a diversos idiomas y culturas sin alterar el software base.</td></tr>
+          <tr><th scope="row">l10n</th><td class="l">Localización: adaptación concreta de la aplicación a una región (traducción, formatos regionales, calendario, convenciones).</td></tr>
+          <tr><th scope="row">BCP 47</th><td class="l">Estándar IETF para etiquetas de identificación de idioma y región (ej. <code>es-PE</code>, <code>en-US</code>, <code>ar-EG</code>).</td></tr>
+          <tr><th scope="row">CLDR</th><td class="l">Common Locale Data Repository: base de datos universal de Unicode que provee reglas de formato, plurales y calendarios.</td></tr>
+          <tr><th scope="row">RTL / LTR</th><td class="l">Right-to-Left (árabe, hebreo) frente a Left-to-Right (español, inglés). Define la dirección de lectura de la interfaz.</td></tr>
+          <tr><th scope="row">Sharpe Ratio</th><td class="l">Medida de rendimiento ajustado por riesgo: exceso de retorno por unidad de volatilidad.</td></tr>
+          <tr><th scope="row">Drawdown</th><td class="l">Pérdida porcentual máxima observada desde un pico hasta un valle en la curva de capital de una estrategia.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+<script src="js/common.js?v=s13_3"></script>
+</body>
+</html>

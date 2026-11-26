@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Configuración · Ernesto Investing AI</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="configuracion">
+<main>
+  <h1 data-i18n="config_title">Configuración del sistema</h1>
+  <p class="lead" data-i18n="config_desc">Preferencias regionales, zona horaria, accesibilidad y parámetros de interfaz.</p>
+
+  <div class="card" style="max-width:40rem;margin-bottom:1.5rem">
+    <h2 style="margin-top:0">Ajustes regionales y de internacionalización</h2>
+    
+    <label for="cfg-lang" data-i18n="lang_label">Idioma</label>
+    <select id="cfg-lang"></select>
+    
+    <label for="cfg-tz" data-i18n="tz_label">Zona horaria</label>
+    <select id="cfg-tz"></select>
+    
+    <div style="margin-top:1rem">
+      <label style="display:inline-flex;align-items:center;gap:.4rem;cursor:pointer">
+        <input type="checkbox" id="cfg-pseudo" style="width:auto">
+        <span>Activar Pseudolocalización (+40 % de longitud y diacríticos para pruebas de desborde)</span>
+      </label>
+    </div>
+
+    <div style="margin-top:1.2rem">
+      <label>Moneda base de visualización</label>
+      <input type="text" value="USD — Dólar estadounidense ($)" disabled style="background:var(--hl);cursor:not-allowed">
+      <p class="mut" style="font-size:.85rem;margin-top:.2rem">Principio de veracidad: la cantidad y divisa se conservan al cambiar de idioma. No se aplican conversiones cambiarias ficticias.</p>
+    </div>
+  </div>
+
+  <div class="card" style="max-width:40rem;border-color:var(--dn)">
+    <h2 style="margin-top:0;color:var(--dn)">Zona de reinicio de datos</h2>
+    <p class="mut">Si desea reiniciar las órdenes simuladas, la lista de vigilancia y el portafolio a sus valores iniciales predeterminados, pulse el siguiente botón:</p>
+    <button type="button" id="btn-reset" style="background:var(--dn);color:#fff;border-color:var(--dn)" data-i18n="reset_demo">Reiniciar datos de simulación</button>
+    <span id="reset-confirm" class="mut" style="margin-inline-start:.5rem"></span>
+  </div>
+</main>
+<script src="js/common.js?v=s13_3"></script>
+<script>
+window.init = async () => {
+  const loc = getLocale();
+  const tz = getTZ();
+
+  // Poblar selectores
+  $("#cfg-lang").innerHTML = Object.keys(LOCALES_INFO).map(l =>
+    `<option value="${l}" ${loc === l ? "selected" : ""}>${LOCALES_INFO[l].name}</option>`
+  ).join("");
+
+  $("#cfg-tz").innerHTML = [
+    { id: "America/Lima", label: "Lima (UTC-5)" },
+    { id: "America/New_York", label: "Nueva York (ET)" },
+    { id: "Asia/Riyadh", label: "Riad (UTC+3)" },
+    { id: "Asia/Tokyo", label: "Tokio (JST)" },
+    { id: "Europe/Madrid", label: "Madrid (CET)" }
+  ].map(z => `<option value="${z.id}" ${tz === z.id ? "selected" : ""}>${z.label}</option>`).join("");
+
+  $("#cfg-pseudo").checked = isPseudo();
+
+  $("#cfg-lang").onchange = e => { setLocale(e.target.value); };
+  $("#cfg-tz").onchange = e => { setTZ(e.target.value); };
+  $("#cfg-pseudo").onchange = e => { setPseudo(e.target.checked); };
+
+  $("#btn-reset").onclick = async () => {
+    localStorage.removeItem("eia_port");
+    localStorage.removeItem("eia_watch");
+    $("#reset-confirm").textContent = "✓ Datos de simulación restaurados a valores iniciales.";
+    setTimeout(() => { $("#reset-confirm").textContent = ""; }, 4000);
+  };
+};
+
+window.onLocaleChange = () => {
+  if ($("#cfg-lang")) $("#cfg-lang").value = getLocale();
+};
+</script>
+</body>
+</html>
