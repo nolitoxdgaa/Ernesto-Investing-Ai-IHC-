@@ -1,0 +1,15 @@
+﻿modulo,locale,antes_truncados,despues_truncados,antes_desbordes,despues_desbordes,estado
+Dashboard (index.html),es-PE,5,0,0,0,CORREGIDO
+Dashboard (index.html),en-US,4,0,0,0,CORREGIDO
+Dashboard (index.html),ar-EG (RTL),4,0,0,0,CORREGIDO
+Dashboard (index.html),ja-JP,5,0,0,0,CORREGIDO
+Dashboard (index.html),qu-PE,5,0,0,0,CORREGIDO
+Dashboard (index.html),Pseudo (+40%),6,0,1,0,CORREGIDO
+Watchlist (watchlist.html),es-PE,3,0,0,0,CORREGIDO
+Trading (trading.html),ar-EG (RTL),4,0,0,0,CORREGIDO
+Clasificación (clasificacion.html),ja-JP,5,0,0,0,CORREGIDO
+Regresión (regresion.html),en-US,4,0,0,0,CORREGIDO
+Optimizador (optimizador.html),es-PE,3,0,0,0,CORREGIDO
+Portafolios (portafolios.html),ar-EG (RTL),4,0,0,0,CORREGIDO
+Backtesting (backtesting.html),es-PE,4,0,0,0,CORREGIDO
+Móvil 375px (iPhone SE),Todos,2,0,1,0,CORREGIDO
